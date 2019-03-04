@@ -1,4 +1,4 @@
-<title>::HOMEPAGE::</title>
+<title>::VIDEO::</title>
 <style>
     /*
                 font-family: 'Abel', sans-serif;
@@ -150,7 +150,65 @@
     
         </style>
     
+    <style>
     
+    .video-content { grid-area: video; height:100%;}
+    .recommendation { grid-area: recom; }
+    .comments { grid-area: comment; }
+    .grid-container {
+        display: grid;
+        grid-template-areas:
+        'video video video video video video video recom recom recom'
+        'comment comment comment comment comment comment comment recom recom recom';
+        padding-top:100px;
+        padding-left:120px;
+        flex-wrap: wrap;
+      }
+    
+      
+      .grid-container > div {
+        font-size: 30px;
+        width:100%;
+        
+      }
+    
+      .recommended-videos {
+        display: grid;
+        grid-template-columns: 40% 58%;    
+        grid-gap: 2%;    
+        color:#FFFFFF;
+      }
+    
+      .recommended-videos>div {
+     
+        font-size: 30px;
+        width:100%;   
+      }
+      
+      
+      
+      @media screen and (max-width: 750px)
+    {
+    
+    .grid-container {
+        display: grid;
+        grid-template-areas:'video'
+        'recom'
+        'comments';
+    }
+    
+    .main-menu
+    {
+        width:0px;
+    }
+      
+    #navicon{
+        visibility: visible;
+    }    
+      
+    }
+    
+      </style>
 
 <style>
         * {box-sizing: border-box;}
@@ -309,33 +367,7 @@
       
     
         </style>
-<style>
 
-    .grid-container {
-      display: grid;
-      grid-template-columns: auto auto auto auto auto;
-      margin:0px;
-      
-      padding: 0;
-     
-    }
-    .grid-item {
-      color:#FFF;
-      
-      padding: 1%;
-      font-size: 30px;
-      text-align: center;
-
-       
-    }
-
-    @media screen and (max-width: 750px)
-    {
-        .grid-container {
-        grid-template-columns: auto;
-    }
-    }
-    </style>
 </head>
 <body>
 
@@ -428,100 +460,95 @@
             </div>
 
             
- <div style="padding:70px 10px 0 70px;">
+                -->
 
-        <h1 style="color:white; font-family: 'Montserrat', sans-serif;">MOST POPULAR VIDEOS</h1>
-                <div class="grid-container">
-    
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>   
-                   
-                </div>
 
-                <h1 style="color:white; font-family: 'Montserrat', sans-serif;">MOST POPULAR CHANNELS</h1>
-                <div class="grid-container">
-                    
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>   
-                       
+            <div class="grid-container">
+                    <div class="video-content" >
+                        <video autoplay muted loop width="100%" src="static/video/2 Minute Timer.mp4" type="video/mp4" controls>
+                                Your browser does not support the video tag.
+                        </video>
+                        <h1 style="font-family: 'Ubuntu', sans-serif; color:white;"> 2 Minute Timer</h1>
+                        <hr/>
+                        <h4 style="color:white; font-family: 'Montserrat', sans-serif; font-weight: bold;">DESCRIPTION</h4>
+                        <p style="font-family: 'Karla', sans-serif; font-weight: 100; color:white; font-size: 22px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
                     </div>
-</div>
+                    <div class="recommendation" style="padding:0 10%;">
+                            <p style="color:white; font-family: 'Montserrat', sans-serif;">RECOMMENDATIONS</p>
+                            <div class="recommended-videos">
+                                <div style="padding:2%"><img src="static/image/video1.png" width=100%>
+                                </div>
+                                <div>
+                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
+                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+                                </div>
+                            </div>
+
+                            <div class="recommended-videos">
+                                    <div style="padding:2%"><img src="static/image/video1.png" width=100%>
+                                </div>
+                                    <div>
+                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
+                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+                                    </div>
+                                </div>
+
+                                <div class="recommended-videos">
+                                        <div style="padding:2%"><img src="static/image/video1.png" width=100%>
+                                </div>
+                                        <div>
+                                            <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
+                                            <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+                                        </div>
+                                    </div>
+                                    <div class="recommended-videos">
+                                            <div style="padding:2%"><img src="static/image/video1.png" width=100%>
+                                </div>
+                                            <div>
+                                                <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
+                                                <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="recommended-videos">
+                                               <div style="padding:2%"><img src="static/image/video1.png" width=100%>
+                                </div>
+                                                <div>
+                                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
+                                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="recommended-videos">
+                                                    <div style="padding:2%"><img src="static/image/video1.png" width=100%>
+                                </div>
+                                                    <div>
+                                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
+                                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="recommended-videos">
+                                                        <div style="padding:2%"><img src="static/image/video1.png" width=100%>
+                                </div>
+                                                        <div>
+                                                            <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
+                                                            <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+                                                        </div>
+                                                    </div>
+                                                   
+
+
+
+                    </div>
+                    <div class="comments">
+                            <p style="color:white; font-family: 'Montserrat', sans-serif;">COMMENTS</p>
+                      
+                        
+                    </div>
+                  </div>
+
 
  <script>
                         function openNav() {

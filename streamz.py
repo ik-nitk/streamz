@@ -7,6 +7,7 @@ from web import form
 
 urls = (
 	'/', 'Index',
+	'/video','Video',
 	'/home', 'Homepage',
 	'/register', 'Register',
  
@@ -57,6 +58,13 @@ class Homepage:
 		
 		return render.homepage()
 
+class Video:
+
+	def GET(self):
+		""" Show page """
+		
+		return render.video()
+
 class Register:
 	register = form.Form(
 	form.Textbox('firstname'),
@@ -78,8 +86,6 @@ class Register:
 			return "Unsuccesful Registration"
 		else:
 			return register.d.firstname,register.d.lastname,register.d.phone,register.d.email,register.d.password
-
-
 
 app = web.application(urls, globals())
 
