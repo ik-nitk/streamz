@@ -23,7 +23,7 @@ class Index:
         
         keywords= web.data()
         ids = model.send_search(json.loads(keywords)['keyword'])
-        print json.dumps({'id': ids})
+        #print json.dumps({'id': ids})
 
 
 app = web.application(urls, globals())
