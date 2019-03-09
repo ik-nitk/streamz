@@ -1,11 +1,13 @@
 import web
 import model
+import json
 from web import form
 
 ### Url mappings
 
 urls = (
 	'/', 'Index',
+	'/search/','Search',
 	
 )
 
@@ -32,8 +34,12 @@ class Index:
 		txt=searchform.d.searchtext
 		model.send_search(txt)
         
-		
-
+class Search:
+	def POST(self):
+		res=web.input()
+		print res
+		#return json.dumps({'id':res})
+		return render.search(res)
 
 app = web.application(urls, globals())
 
