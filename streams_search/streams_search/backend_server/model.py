@@ -5,7 +5,7 @@ import requests
 
 from elasticsearch import Elasticsearch 
 # Connect to the elastic cluster
-url='http://0.0.0.0:8080'
+url='http://0.0.0.0:8080/search/'
 def send_search(txt):
   txt=str(txt)
   print(txt)
@@ -29,7 +29,11 @@ def send_search(txt):
                     })
   for hit in res['hits']['hits']:
     videos.append(hit['_source']['data']['id'])
-  return videos
+  ids = {'id': videos}  
+  return requests.post(url, data=json.dumps(ids)) 
    
+	
+    
+
 	
     
