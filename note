@@ -1,0 +1,4 @@
+This is the auth service runs on port no. 9090
+this acts as the back-end server for the user registeration and login
+the password is encrypted using hashlib 
+the servers talk with each other in json format
