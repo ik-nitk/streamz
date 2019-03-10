@@ -10,7 +10,8 @@ def new_user(firstname,lastname,phone,email,username,pwd):
     #userdb=sqlite3.connect('streamz.db')
     #id=userdb.insert('insert values into user)
     id=db.insert('user', firstname=firstname, lastname=lastname,email=email,username=username,pwd=pwd,phone=phone)
-    return json.dumps(username)
+    dict={"username":username,"id":id}
+    return json.dumps(dict)
 
 
 def check_user(username,password):
@@ -22,9 +23,8 @@ def check_user(username,password):
     #if pass2==password: 
         logged={"loggedin":"false"}
  	#raise web.seeother('/results')
-	return json.dumps(logged)   
+	return json.dumps({"loggedin":"false"})   
     else: 
-	error={"loggedin":"true"} 
+	error={"loggedin":"true","username":username} 
 	return json.dumps(error)
-
 
