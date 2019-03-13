@@ -1,10 +1,11 @@
+#import elasticsearch
 from elasticsearch import Elasticsearch 
 
 # Connect to the elastic cluster
 es=Elasticsearch([{'host':'localhost','port':9200}])
 print es
 
-e1={    "id": "1",
+e1={    "id": "1", 
         "channel":"mostlysane",
         "uploader": "prajakta kohli",
         "category": "vlogger",
@@ -123,13 +124,11 @@ e12={
         "tags": ["breaking news","news","world news"],
 }   
 
-
+# create index called streams1
+# added analysers for stemming and tokenizing
+# remove stop words
 res = es.indices.create(index ='streams1', body = {
-  
-  
-  
- 
-  "settings": {
+   "settings": {
     "analysis": {
       "filter": {
         "english_stop": {
@@ -161,7 +160,8 @@ res = es.indices.create(index ='streams1', body = {
   }
 })
   
-          
+ #insert onto elasticsearch server
+# currently there are 12 entries
 res = es.index(index='streams1',doc_type='video',body=e1)
 res = es.index(index='streams1',doc_type='video',body=e2)
 res = es.index(index='streams1',doc_type='video',body=e3)
