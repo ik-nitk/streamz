@@ -15,85 +15,60 @@ https://towardsdatascience.com/getting-started-with-elasticsearch-in-python-c359
 
 
 
-
 2. for initial database run the file database.py
-  
  
-   index_name='streams1',doc_type='video',body='data' 
-  
-    contains data in json format
-                 var={ "id":number,
-                                      "channel":text
-  ,
-                                       "uploader":name
-   ,
-                                       "category":text,
-  
-                                      "title":sentence,
-  
-                                      "description":desc,
-
-                                      "tags":"[tag1],[tag2],[tag3]"
- ,
-                                    }
+index_name='streams1',doc_type='video',body='data' 
+contains data in json format
+  var={ "id":number,
+           "channel":text
+  , "uploader":name
+   , "category":text,
+  "title":sentence,
+  "description":desc,
+  "tags":"[tag1],[tag2],[tag3]"
+ ,}
 
 3. to check if the data is inserted in the browser 
     
 ->http://localhost:9200/streams1
   
-      for details of 1st video
-      
-->http://localhost:9200/streams1/video/1
+  for details of 1st video
+  ->http://localhost:9200/streams1/video/1
 
 
 
 4. inserting onto server
 
      ->function: send_details()
-
-  
-         curl command example: 
-
-curl -H "Accept: application/json" -H "Content-type: application/json" -X POST 
-                                            -d '{"id":"13","channel":"indian idol","uploader":"sony","category":"music","desc":"talent show","tags":"[music],[tv show]"}' http://0.0.0.0:8080/details
+     curl command example: 
+     
+     curl -H "Accept: application/json" -H "Content-type: application/json" -X POST 
+     -d '{"id":"13","channel":"indian idol","uploader":"sony","category":"music","desc":"talent show","tags":"[music],[tv show]"}' http://0.0.0.0:8080/details
 
 
 
 5. searching for videos
 ->function:send_search()
-   
-  
-
- can be searched based on 
-     
-
-*channel 
-
-*category 
-
-*title 
-
-*uploader 
-
-*tags
-
-
- 
+  can be searched based on 
+  *channel 
+  *category 
+  *title 
+  *uploader 
+  *tags
 curl command example:
-
 
 curl -H "Accept: application/json" t-type: application/json" -X POST -d '{"keyword":"news"}' http://0.0.0.0:8080/search
 
 
-
 6. deleting the videos from server
-
-
-based on id
-function->delete()
-
-
+   based on id
+   function->delete()
 curl command example:
 
 curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"id":"13"}' http://0.0.0.0:8080/delete
 
+anazylers used for stemming and tokenizing words like read,reading,reads etc
+analyzers used for auto_complete feature
+analyzers used for spelling corrections
+
+futher implementation: sorting and filtering based on age, duration, ratings and countries
