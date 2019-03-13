@@ -5,6 +5,8 @@ from elasticsearch import Elasticsearch
 es=Elasticsearch([{'host':'localhost','port':9200}])
 print es
 
+#dummy data
+#12 entries made
 e1={    "id": "1", 
         "channel":"mostlysane",
         "uploader": "prajakta kohli",
