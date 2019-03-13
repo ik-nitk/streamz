@@ -1,13 +1,17 @@
+#import packages
 import web
 import model
 import json
 
 ### Url mappings
+#insertion,search,deletion
 
 urls = (
 	'/details','Details',
     '/search', 'Search',
     '/delete','Delete',
+    '/sort','Sort',
+    '/filter','Filter',
     
 )
 # sorting and filtering to be added
@@ -17,9 +21,8 @@ urls = (
 
 
 
-
+# search by keyword
 class Search:
-
     def GET(self):
         """no function"""
 
@@ -31,6 +34,7 @@ class Search:
         return ids
 
 
+# delete by id
 class Delete:
 
     def GET(self):
@@ -41,12 +45,10 @@ class Delete:
         index= web.data()
         res = model.delete(json.loads(index)['id'])
         #print res
-        return res       
+        return res  
 
+#insert video details
 class Details:
-
-	
-
     def POST(self):
         
         data= web.data()
