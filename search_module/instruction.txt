@@ -43,7 +43,7 @@ contains data in json format
      curl command example: 
      
      curl -H "Accept: application/json" -H "Content-type: application/json" -X POST 
-     -d '{"id":"13","channel":"indian idol","uploader":"sony","category":"music","desc":"talent show","tags":"[music],[tv show]"}' http://0.0.0.0:8080/details
+     -d '{"id":"13","channel":"sony","uploader":"sony","category":"music","title":"indian idol","desc":"talent show","tags":"[music],[tv show]"}' http://0.0.0.0:8080/details
 
 
 
