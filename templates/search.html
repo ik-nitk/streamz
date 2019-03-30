@@ -1,0 +1,510 @@
+$def with (username, result,videoname,uploader)
+<title>::SEARCH RESULTS::</title>
+<style>
+    /*
+                font-family: 'Abel', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Patua One', cursive;
+    */
+    *{
+        padding:0;
+        margin:0;
+    }
+    body{
+        background-color: black;
+    }
+ 
+    
+    </style>
+    
+    
+    
+    
+    
+    <style>
+            .fa-2x{
+                font-size:2em;
+            }
+            .fa{
+                position:relative;
+                display:table-cell;
+                width:60px;
+                height:36px;
+                text-align:center;
+                vertical-align:middle;
+                font-size:20px;
+            }
+        
+            .main-menu:hover, #navicon:hover, nav.main-menu.expanded{
+                width:250px;
+                overflow:visible;
+        
+            }
+        
+            .main-menu{
+                background:rgba(0,0,0,1) 4%;
+                border-right:1px solid #e46226;
+                position: fixed;
+                top:60px;
+                bottom:0;
+                height:100%-70px;
+                left:0;
+                width:250px;
+                overflow:hidden;
+                transition: width 0.2s linear;
+                z-index:1000;
+                -webkit-transform:translate(0) scale(1,1);
+            }
+        
+            .main-menu > ul{
+                margin: 7px 0;
+            }
+        
+            .main-menu li{
+                position: relative;
+                display: block;
+                width:250px;
+            }
+        
+            .main-menu li a{
+                position: relative;
+                display: table;
+                border-collapse: collapse;
+                border-spacing: 0;
+                color:#999;
+                font-family:arial;
+                font-size:14px;
+                text-decoration:none;
+                -webkit-transform:translateZ(0) scale(1,1);
+                transition: all 0.2s linear;
+            }
+        
+            .main-menu .nav-icon{
+               
+                display: table-cell;
+                width:60px;
+                height:36px;
+                text-align:center;
+                vertical-align:middle;
+                font-size:18px;
+                position: fixed;
+            }
+        
+            .main-menu .nav-text{
+                position: relative;
+                display: table-cell;
+                vertical-align:middle;
+                width:190px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                
+            }
+        
+            .main-menu ul.logout{
+                position:fixed;
+                left:0;
+                bottom:0;
+            }
+        
+            .no-touch .scrollable.hover{
+                overflow-y:hidden;
+            }
+            .no-touch .scrollable.hover:hover{
+                overflow-y:auto;
+                overflow:visible;
+            }
+        
+            a:hover,a:focus{
+                text-decoration: none;
+            }
+        
+            nav{
+                user-select: none;
+            }
+            nav ul,nav li{
+                outline:0;
+                margin:0;
+                padding:0;
+        
+            }
+        
+            .main-menu li:hover a,
+            .nav.main-menu li:active a,
+            .dropdown-menu li a:hover,
+            .dropdown-menu li a:focus,
+            .dropdown-menu .active a,
+            .dropdown-menu .active a:hover,
+            .dropdown-menu .active a:focus,
+            .no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
+            .dashboard-page nav.dashboard-menu ul li.active a{
+                color:white;
+                background-color:#e46226;
+            }
+        
+            .area{
+                float:left;
+                background: #e2e2e2;
+                width: 100%;
+                height:100%;
+            }
+    
+    
+    
+        </style>
+    
+    <style>
+    
+  
+    
+      
+
+      
+      
+      @media screen and (max-width: 750px)
+    {
+    
+   
+    
+    .main-menu
+    {
+        width:0px;
+    }
+      
+    #navicon{
+        visibility: visible;
+    }    
+      
+    }
+    
+      </style>
+
+<style>
+        * {box-sizing: border-box;}
+        
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .topnav {
+        height:60px;
+        overflow: hidden;
+        background-color: #000;
+        color:#FFF;
+        border-bottom:1px solid #e46226;
+        position: fixed;
+        width:100%;
+        }
+        
+        .logo{
+            float: left;
+          display: block;
+          color: #e46226;
+          text-align: center;
+            padding:0px 20px;
+          text-decoration: none;        
+        font-family: 'Abel', sans-serif;
+        font-size: 40px;
+        font-weight: 900;
+       
+    
+
+        }
+        
+        .options{
+        float: right;
+        display: block;         
+        text-align: center;
+        padding: 15px 16px;
+        text-decoration: none;
+        color:#fff;
+        font-size:25px;
+        font-weight: bold;
+        font-family: 'Abel', sans-serif;
+
+        }
+        
+        .topnav a:hover {
+          background-color: #e46226;
+          color: white;
+        }
+        
+    
+        
+        .search-container {
+          float: left;
+          width:40%;
+        }
+        
+        .topnav input[type=text] {
+          padding: 6px;
+          margin-top: 8px;
+          font-size: 17px;
+          border: none;
+          width:80%;
+          color:#000;
+        }
+        
+        .topnav .search-container button {
+          float: right;
+          padding: 0px 10px;
+          margin-top: 8px;
+          margin-right: 0px;
+          background-color: #e46226;
+          font-size: 17px;
+          border: none;
+          cursor: pointer;
+          text-align:center;
+          width:20%;
+        }
+        
+        .topnav .search-container button:hover {
+          background: #ccc;
+        }
+
+#lang-selector{
+    float:right;
+    font-family: 'Patua One', cursive;
+        font-size: 20px;
+        background-color:#FFF;
+        color:#000;
+        padding:5px;
+        margin-top:7px;
+        text-align: center;
+
+}
+
+        #navicon{
+        visibility: hidden;
+        float: left;
+          display: block;
+          color: #e46226;
+          text-align: center;
+            padding:0px 20px;
+          text-decoration: none;        
+        font-family: 'Abel', sans-serif;
+        font-size: 40px;
+        font-weight: 900;
+        position: absolute; 
+  left: -999em;
+        
+    }  
+
+    .content{
+        padding:70px 10px 10px 260px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto;
+      margin:0px;
+      
+      padding: 0;
+     
+    }
+    .grid-item {
+      color:#FFF;
+      
+      padding:;
+      font-size: 30px;
+      text-align: center;
+
+       
+    }
+    
+
+
+    @media screen and (min-width: 750px) and (max-width: 900px)
+{
+    .search-container
+    {
+        width:20%;
+    }
+
+    .content{
+        padding:70px 10px 10px 0px;
+    }
+
+    #navicon{
+        visibility: visible;
+        float: left;
+            display: block;
+            color: #e46226;
+            text-align: center;
+            padding:10px 20px;
+            text-decoration: none;        
+        font-family: 'Abel', sans-serif;
+        font-size: 40px;
+        font-weight: 900;
+        left:0;
+        position: relative;
+    }  
+
+}
+        
+@media screen and (max-width: 750px)
+{
+       .main-menu
+    {
+        width:0px;
+    }
+        
+    #lang-selector
+    {
+        display:none;
+    }
+    #navicon{
+        visibility: visible;
+        float: left;
+            display: block;
+            color: #e46226;
+            text-align: center;
+            padding:10px 20px;
+            text-decoration: none;        
+        font-family: 'Abel', sans-serif;
+        font-size: 40px;
+        font-weight: 900;
+        left:0;
+        position: relative;
+    }  
+    .content{
+        padding:70px 10px 10px 0px;
+    }
+}         
+    
+</style>
+<style>
+
+  </style>
+
+</head>
+<body>
+
+
+
+        <nav class="main-menu" id="navbar2">
+                <ul>
+    
+    
+                    <li>
+                        <a href=""><i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                            HOME
+                        </span></a>
+                    </li>
+    
+    
+                    <li class="has-subnav">
+                            <a href=""><i class="fa fa-laptop fa-2x"></i>
+                            <span class="nav-text">
+                                TRENDING
+                            </span></a>
+                        </li>
+    
+                    <li class="has-subnav">
+                            <a href=""><i class="fa fa-list fa-2x"></i>
+                            <span class="nav-text">
+                                SUBSCRIPTION
+                            </span></a>
+                        </li>
+                      <div style=" padding:0px 10px;"><hr/></div> 
+                     <li class="has-subnav">
+                                <a href=""><i class="fa fa-folder-open fa-2x"></i>
+                                <span class="nav-text">
+                                   HISTORY
+                                </span></a>
+                            </li>
+                        
+                    <li>
+                            <a href=""><i class="fa fa-bar-chart-o fa-2x"></i>
+                            <span class="nav-text">
+                                WATCH LATER
+                            </span></a>
+                        </li>
+
+                        <div style=" padding:0px 10px;"><hr/></div> 
+                    <li>
+                            <a href=""><i class="fa fa-font fa-2x"></i>
+                            <span class="nav-text">
+                                FILTERS
+                            </span></a>
+                    </li>
+                   
+    
+    
+                </ul>
+    
+                <ul class="logout">
+                    <li>
+                        <a href="/logout">
+                            <i class="fa fa-power-off fa-2x"></i>
+                            <span class="nav-text">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+    
+            </nav>
+
+
+    <div class="topnav">
+            <a id="navicon"  onclick="openNav()" style=" width:0px;"><i class="fa fa-navicon fa-2x" style="padding:0px; margin:0px"></i></a>
+            <a class="logo" href="/">STREAMZ</a>
+            <a class="options" href="#home"><i class="fa fa-list fa-2x"></i></a>
+            <a class="options" href="#about">$username</a>
+            
+           
+            &nbsp &nbsp &nbsp
+            <select id="lang-selector">
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Kannada</option>
+              
+
+            </select>
+
+    </div>
+
+            
+            
+
+<div class="content">    <br/><br/><br/>
+    <div class="container-fluid">
+        <div class="row">
+            $for i in range(len(result)):
+                <div class="recommendation" style="padding:0 10%;">                
+                                        
+
+                    <div class="grid-container">            
+                        <div class="grid-item">
+                            <img style="" src="http://0.0.0.0:8080/thumbnails/$result[i]" width=50%>
+                                                  
+                        </div>
+                    </div>
+                    <div class="grid-container">            
+                        <div class="grid-item">
+                            <div>
+                                <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">$videoname[i]</p>
+                                <p style="font-family: 'Patua One', cursive; font-size: 20px">$uploader[i]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+ 
+
+
+
+ <script>
+                        function openNav() {
+                            var x = document.getElementById("navbar2");
+                            if(x.style.width == "250px")
+                                x.style.width = "0px";
+                            else
+                                x.style.width = "250px";
+                        
+                        }
+                                           
+                        
+                        </script>
+
+
