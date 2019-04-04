@@ -1,5 +1,5 @@
-$def with (username)
-<title>::HOMEPAGE::</title>
+$def with (username, subscriptions,firstname)
+<title>::UPLOADS::</title>
 <style>
     /*
     font-family: 'Abel', sans-serif;
@@ -42,7 +42,7 @@ $def with (username)
         bottom:0;
         height:100%-70px;
         left:0;
-        width:60px;
+        width:250px;
         overflow:hidden;
         transition: width 0.2s linear;
         z-index:1000;
@@ -234,80 +234,156 @@ $def with (username)
     }
 
 /*Content*/
+    .content{
+        padding:70px 10px 10px 260px;
+    }
+
+    .item1 { grid-area: video; }
+    .item2 { grid-area: menu; }
+    .item3 { grid-area: options; }
+    .searchlist{
+        padding:0px;
+    }
+    
     .grid-container {
-        display: grid;
-        grid-template-columns: auto auto auto auto auto;
-        margin:0px;
-        padding: 0;
+      display: grid;
+      grid-template-areas:
+        'video menu options';
+    grid-template-columns: 400px 400px 400px;
+      grid-gap: 10px;
+      
+      padding: 00px;
+    }
+    
+    .grid-container > div {
+      
+      color:#FFFFFF;
+      text-align: left;
+      padding: 0px 0;
+      font-size: 30px;
+    }
+    .grid-container > div > img {
+        height:200px;
+        width:400px;  
+        padding:0px;
+    }  
+
+    .button {
+        
+        padding: 6px 10px;
+        margin-top: 8px;
+        margin-right: 0px;
+        background-color: #e46226;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+        text-align:center;
+        
         
     }
-    .grid-item {
-        color:#FFF;        
-        padding: 0%;
-        font-size: 30px;
-        text-align: center;       
-    } 
-    .content {
-        padding:70px 10px 0 70px;
+    .aclass {
+        color:#e2e2e2;
+        background-color: #e46226;
+        font-weight: bolder;
+    }
+    .aclass:hover {
+        color:#FFF;
     }  
 </style>
+
+
 <style>
-
     
+    @media screen and (min-width: 750px) and (max-width: 900px)
+    {
+        .search-container
+        {
+            width:20%;
+        }
 
-@media screen and (min-width: 750px) and (max-width: 900px)
-{
-    .search-container
-    {
-        width:20%;
-    }
-    .username
-    {
-        display:none;
-    }
-}
-  
-@media screen and (max-width: 750px)
-{
-    .main-menu
-    {
-        width:0px;
-    }
-      
-    #lang-selector
-    {
-        display:none;
-    }
-    #navicon{
-        visibility: visible;
-        float: left;
-        display: block;
-        color: #e46226;
-        text-align: center;
-        padding:10px 20px;
-        text-decoration: none;        
-        font-family: 'Abel', sans-serif;
-        font-size: 40px;
-        font-weight: 900;
-        left:0;
-        position: relative;
-    } 
-    .username
-    {
-        display:none;
-    } 
-    .grid-container {
-        grid-template-columns: auto;
-    }
-    .content {
-        padding:70px 10px 0 10px;
-    } 
-} 
+        .content{
+            padding:70px 10px 10px 0px;
+        }
+        #navicon{
+            visibility: visible;
+            float: left;
+                display: block;
+                color: #e46226;
+                text-align: center;
+                padding:10px 20px;
+                text-decoration: none;        
+            font-family: 'Abel', sans-serif;
+            font-size: 40px;
+            font-weight: 900;
+            left:0;
+            position: relative;
+        }  
 
+    }
+        
+    @media screen and (max-width: 750px)
+    {
+        .main-menu
+        {
+            width:0px;
+        }
+            
+        #google_translate_element
+        {
+            display:none;
+        }
+        #navicon{
+            visibility: visible;
+            float: left;
+                display: block;
+                color: #e46226;
+                text-align: center;
+                padding:10px 20px;
+                text-decoration: none;        
+            font-family: 'Abel', sans-serif;
+            font-size: 40px;
+            font-weight: 900;
+            left:0;
+            position: relative;
+        }  
+        .content{
+            padding:70px 0px 10px 0px;
+        }
+
+        
+        .grid-container {
+        display: grid;
+        grid-template-areas:
+            'video'
+            'menu'
+            'options';
+        grid-template-columns: 100%;
+        grid-gap: 00px;        
+        padding: 00px;
+        }
+
+        
+        .grid-container > div {
+        
+        color:#FFFFFF;
+        text-align: left;
+        font-size: 30px;
+        }  
+        .grid-container > div > img {
+            width:100%; 
+        }  
+
+        
+        .searchlist{
+            padding:0px 0px 0px 0px;
+        } 
+
+    }
 </style>
+
+
 </head>
 <body>
-
 
     <nav class="main-menu" id="navbar2">
         <ul>
@@ -373,103 +449,35 @@ $def with (username)
         </div>
     </div>
 
+
             
- <div class="content" >
-
-        <h1 style="color:white; font-family: 'Montserrat', sans-serif;">MOST POPULAR VIDEOS</h1>
-                <div class="grid-container">
-    
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>   
-                   
+            
+<div class="content">
+    <h1 style="color:white; font-family: 'Montserrat', sans-serif;">SUBSCRIPTION</h1>
+    <div class="searchlist" >
+        $for i in range(len(subscriptions)):
+            <div class="grid-container" style="width:100%;">
+                <div class="item1" style="width:100%">
+                    <img  src="http://0.0.0.0:8080/thumbnails/$subscriptions[i]"  >
                 </div>
-
-                <h1 style="color:white; font-family: 'Montserrat', sans-serif;">MOST POPULAR CHANNELS</h1>
-                <div class="grid-container">
-                    
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>   
-                       
-                    </div>
+                <div class="item2" style="width:100%">
+                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">$subscriptions[i]</p>                    
+                </div>
+                <div class="item3" style="width:100%">
+                    <form method="POST" action="/unsubscribe">
+                        <input value="$username" style="display:none;" type="text" name="username"/>
+                        <input value="$subscriptions[i]" style="display:none;" type="text" name="uploader"/>
+                        <button style="background-color:grey;margin-top:2%" class="button">UNSUBSCRIBE</button>
+                    </form><br/>     
+                </div>                        
+            </div><br/>            
+    </div>
 </div>
+ 
 
- <script>
+
+
+<script>
     function openNav() {
         var x = document.getElementById("navbar2");
         if(x.style.width == "250px")
@@ -487,3 +495,4 @@ $def with (username)
 </script>
     
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+

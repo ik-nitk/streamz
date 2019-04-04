@@ -57,8 +57,8 @@ class Details:
         title=json.loads(data)['video_name']
         description=json.loads(data)['description']
         tags=json.loads(data)['tags']
-	countries=json.loads(data)['countries']
-	age=json.loads(data)['age']
+        countries=json.loads(data)['countries']
+        age=json.loads(data)['age']
         details=json.dumps({'id':ids,'uploader':uploader,'category':category,'title':title,'description':description,'tags':tags})
         #print details
         res = model.send_details(details)

@@ -1,4 +1,3 @@
-""" Basic todo list using webpy 0.3 """
 import web
 import requests
 import model
@@ -6,30 +5,44 @@ from web import form
 import json
 import datetime
 from datetime import date
-### Url mappings
+import ast
 
 urls = (
 	'/', 'Index',
-	'/play/(\d+)','Play',
-	'/home', 'Homepage',
 	'/register', 'Register',
-	'/about', 'About',
-	'/uploads', 'Uploads',
-	'/statistics', 'Statistics',
+	'/home', 'Homepage',
+	'/play/(\d+)','Play',
 	'/uploadvideo','Uploadvideo',
-	'/uploaded','Uploaded',
-	'/comment','Comment',
 	'/uploadvideoinfo/(\d+)','UploadVideoInfo',
 	'/uploadvideoinfo','UploadVideoInfo',
+	'/editvideo/(\d+)','EditVideo',
+	'/deletevideo/(\d+)','DeleteVideo',
+	'/comment','Comment',
 	'/logout','Logout',
 	'/search','Search',
-	'/upload','MyUpload',
 	'/profile','Profile',
 	'/updateprofile','UpdateProfile',
+	'/myprofile', 'MyProfile',
+	'/uploads', 'Uploads',
+	'/statistics', 'Statistics',
 	'/videos/(\d+)','Videos',
 	'/thumbnails/(\d+)','Thumbnails', 
-	'/videoname/(\d+)','VideoName',
-	'/uploader/(\d+)','Uploader',
+	'/profilepic/(\d+)','ProfilePic',
+	'/coverpic/(\d+)','CoverPic',
+	'/like','Like',
+	'/dislike','Dislike',
+	'/nonelike','Nonelike',
+	'/subscribe','Subscribe',
+	'/unsubscribe','Unsubscribe',
+	'/demo/(\d+)','Demo',
+	'/updatevideo','UpdateVideo',
+	'/subscription','Subscription',
+	'/profile/(.+)','Profile',
+	'/profileuploads/(.+)','ProfileUploads',
+	'/history','History',
+	'/profilepic/(.+)','ProfilePic',
+	'/coverpic/(.+)','CoverPic',
+	'/categories/(.+)','Categories',
 )
 
 
@@ -43,6 +56,217 @@ if web.config.get('_session') is None:
     web.config._session = session
 else:
     session = web.config._session
+
+class Categories:
+
+	def GET(self,category):	
+			#s=model.get_category_videoids(category,model.calculate_Age(model.get_dob(session.user)['dob']),model.get_country(session.user)['country'])
+			return category
+			t=s['id']
+			videonames=[]
+			for i in range(len(t)):
+				videonames.append(model.get_videoname(t[i])['name'])
+			uploaders=[]
+			for i in range(len(t)):
+				uploaders.append(model.get_uploader(t[i])['uploader'])
+			return render.profile(category,videonames,uploaders)
+
+class Profile:
+
+	def GET(self,profileusername):	
+		u=model.get_user_stats(profileusername)
+		return render.profile(session.user,model.get_firstname(session.user)['firstname'],profileusername,u['joined'],u['likes'],u['dislikes'],u['subscribers'])
+
+class ProfileUploads:
+
+	def GET(self,profileusername):
+		s=model.get_uploads(profileusername)
+		t=s['videouploads']
+ 		videonames=[]
+		for i in range(len(t)):
+			videonames.append(model.get_videoname(t[i])['name'])
+		uploaders=[]
+		for i in range(len(t)):
+			uploaders.append(model.get_uploader(t[i])['uploader'])
+		return render.profileuploads(session.user,profileusername,t,videonames,uploaders,model.get_firstname(profileusername)['firstname'])
+
+
+class Subscribe:
+	def POST(self):
+		i = web.input()
+		s=model.subscribe(i.username,i.uploader)
+		if s['subscribestatus']=="Subscribed":
+			t=model.get_subscribestatus_count(i.uploader)
+			sbs=t['Subscribers']
+			model.update_subscribestatus(i.uploader,sbs)			
+			raise web.seeother('/play/'+i.videoid)
+
+
+class Unsubscribe:
+	def POST(self):
+		i = web.input()
+		s=model.unsubscribe(i.username,i.uploader)
+		if s['subscribestatus']=="Unsubscribed":
+			t=model.get_subscribestatus_count(i.uploader)
+			sbs=t['Subscribers']
+			model.update_subscribestatus(i.uploader,sbs)
+			raise web.seeother('/play/'+i.videoid)
+				
+			
+
+class Entertainment:
+	def GET(self):
+		s = model.send_search("entertainment",model.calculate_Age(model.get_dob(session.user)['dob']),model.get_country(session.user)['country'])
+		t=s['id']
+ 		videonames=[]
+		for i in range(len(t)):
+			videonames.append(model.get_videoname(t[i])['name'])
+		uploaders=[]
+		for i in range(len(t)):
+			uploaders.append(model.get_uploader(t[i])['uploader'])
+		return render.entertainment(session.user,t,videonames,uploaders)
+
+
+class Comment:
+	def POST(self):
+		i = web.input()
+		s = model.send_comment(i.videoid,i.username,i.commenttext)
+		return s
+
+class Subscription:
+	def GET(self):
+		s=model.get_subscription(session.user)
+		t=s['subscriptions']
+		return render.subscription(session.user,t,model.get_firstname(session.user)['firstname'])
+		
+
+class ProfilePic:
+    def GET(self,username):
+		s=model.get_profilepic(username)		
+		return s
+
+class CoverPic:
+    def GET(self,username):
+		s=model.get_coverpic(username)		
+		return s
+
+class DeleteVideo:
+
+	def GET(self,video_id):
+		id=int(video_id)
+		s=model.delete_video(id)
+		if s['status']=="Deleted":
+			raise web.seeother('/uploads')
+
+class Like:
+
+	def POST(self):
+		i = web.input()
+		s=model.update_like(i.username,i.videoid)
+		if s['likestatus']=="Liked":
+			t=model.get_likestatus_count(i.videoid)
+			lks=t['likes']
+			dlks=t['dislikes']
+			model.update_likestatus(i.videoid,lks,dlks)
+			model.update_channel_likes_count(i.uploader)
+			raise web.seeother('/play/'+i.videoid)
+
+class Dislike:
+	def POST(self):
+		i = web.input()
+		s=model.update_dislike(i.username,i.videoid)
+		if s['likestatus']=="Disliked":
+			t=model.get_likestatus_count(i.videoid)
+			lks=t['likes']
+			dlks=t['dislikes']
+			model.update_likestatus(i.videoid,lks,dlks)
+			model.update_channel_likes_count(i.uploader)
+			raise web.seeother('/play/'+i.videoid)
+
+class Nonelike:
+	def POST(self):
+		i = web.input()
+		s=model.update_nonelike(i.username,i.videoid)
+		if s['likestatus']=="Noneliked":
+			t=model.get_likestatus_count(i.videoid)
+			lks=t['likes']
+			dlks=t['dislikes']
+			model.update_likestatus(i.videoid,lks,dlks)
+			model.update_channel_likes_count(i.uploader)
+			raise web.seeother('/play/'+i.videoid)
+
+class UpdateVideo:
+	def POST(self):
+
+		i = web.input()
+		th = web.input(mythumbnail={})
+			
+		countries=[]
+		if hasattr(i, 'India'):
+			countries.append(i.India)
+		if hasattr(i, 'UnitedStates'):
+			countries.append(i.UnitedStates)
+		if hasattr(i, 'Australia'):
+			countries.append(i.Australia)
+		if hasattr(i, 'UnitedKingdom'):
+			countries.append(i.UnitedKingdom)
+		if hasattr(i, 'Germany'):
+			countries.append(i.Germany)
+		if countries==[]:
+			countries= None
+		if i.age=="None":
+			age=0
+		elif i.age=="10+":
+			age=10
+		else:
+			age=18
+		t=str(i.tags)
+		tg=json.dumps(t.split(","))
+		p=model.update_video(i.id,i.name,i.description,tg,countries,i.category,session.user,age,th)
+		raise web.seeother('/play/'+i.id)
+		#return p
+
+class EditVideo:
+
+	def POST(self,video_id):
+		id=int(video_id)
+		s=model.get_videodesc(id)
+		#if s['id']==session.user:
+		id1=s['id']
+		name=s['name']
+		uploader=s['uploader']
+		description=s['description']
+		category=s['category']
+		if s['countries']!=None:
+			countries=ast.literal_eval(s['countries'])
+		else:
+			countries=None
+		age=s['age']		
+		tags=ast.literal_eval(s['tags'])
+		return render.editvideo(session.user,int(id1),name,description,category,countries,int(age),','.join(tags))
+
+class UpdateProfile:
+	
+	def GET(self):
+		
+		s=model.get_profile(session.user)
+		fn=s['firstname']
+		ln=s['lastname']
+		cat=s['category']
+		db=s['dob']
+		abt=s['about']
+		eml=s['email']
+		ph=s['phone']
+		return render.updateprofile(session.user,fn,ln,abt,cat,db,eml,ph)
+		return s
+
+	def POST(self):
+		i = web.input()
+		x = web.input(myprofilepic={})
+		y = web.input(mycoverpic={})
+		s = model.update_profile(i.firstname,i.lastname,i.username,i.about,i.phone,i.email,i.category,i.country,i.dob,x,y)
+		return s
+
 class Index:
 
 	login = form.Form(
@@ -99,12 +323,13 @@ class Register:
 		eml=register.d.email
 		un=register.d.username
 		pwd=register.d.password
-		s=model.new_user(fn,ln,ph,eml,un,pwd)
+		s=model.new_user(fn,ln,ph,eml,un,pwd,str(date.today()))
 		if s['status']== "Registered":
 			session.loggedin = True
 			session.user = s['username']
 			#return s
-        	raise web.seeother('/updateprofile') 
+        	raise web.seeother('/updateprofile')
+		#return s
 
 class Search:
 
@@ -120,22 +345,27 @@ class Search:
 		for i in range(len(t)):
 			uploaders.append(model.get_uploader(t[i])['uploader'])
 		return render.search(session.user,t,videonames,uploaders)
-
+		
 
 class Homepage:
 	def GET(self):
 		if session.user=='username':
 				raise web.seeother('/')
 		else: 	
-			return render.homepage(session.user)
+			return render.homepage(model.get_firstname(session.user)['firstname'])
 
 class Play:
 	def GET(self,video_id):
 		if session.user=='username':
 			raise web.seeother('/')
 		else:
-			
-			return render.play(session.user,video_id,model.get_videoname(video_id)['name'],model.get_description(video_id)['description'])
+			ls=model.get_likestatus(session.user,video_id)
+			ss=model.get_subscribestatus(session.user,model.get_uploader(video_id)['uploader'])
+			cmts=model.get_commentlist(video_id)
+			#s=get_recommendation(video_id,model.calculate_Age(model.get_dob(session.user)['dob']),model.get_country(session.user)['country'])
+			return render.play(session.user,video_id,model.get_videoname(video_id)['name'],model.get_uploader(video_id)['uploader'],model.get_description(video_id)['description'],ls['likestatus'],ss['subscribestatus'],cmts['commentid'],cmts['usernames'],cmts['commentlist'])
+
+		
 
 class Uploadvideo:
 	def GET(self):	
@@ -171,61 +401,30 @@ class UploadVideoInfo:
 			
 		countries=[]
 		if hasattr(i, 'India'):
-			countries.append({'country':i.India})
+			countries.append(i.India)
 		if hasattr(i, 'UnitedStates'):
-			countries.append({'country':i.UnitedStates})
+			countries.append(i.UnitedStates)
 		if hasattr(i, 'Australia'):
-			countries.append({'country':i.Australia})
+			countries.append(i.Australia)
 		if hasattr(i, 'UnitedKingdom'):
-			countries.append({'country':i.UnitedKingdom})
+			countries.append(i.UnitedKingdom)
 		if hasattr(i, 'Germany'):
-			countries.append({'country':i.Germany})
+			countries.append(i.Germany)
 		if countries==[]:
-			countries= "None"
+			countries= None
 		if i.age=="None":
 			age=0
 		elif i.age=="10+":
 			age=10
 		else:
 			age=18
-		p=model.upload_video_info(i.id,i.name,i.description,i.tags.split(","),countries,i.category,session.user,age,th)
-		raise web.seeother('/about')
-		return p
-
-class UpdateProfile:
-	profile = form.Form(
-	form.Textbox('firstname'),
-	form.Textbox('lastname'),
-	form.Textbox('phone'),
-	form.Textbox('email'),
-	form.Password('username'),
-	form.Textbox('dob'),
-	form.Textbox('country'),
-	form.Button('Submit'),
-	)
-
-	def GET(self):
-		profile=self.profile
-		s=model.get_profile(session.user)
-		fn=s['firstname']
-		ln=s['lastname']
-		cat=s['category']
-		db=s['dob']
-		eml=s['email']
-		ph=s['phone']
-		return render.updateprofile(profile,session.user,fn,ln,cat,db,eml,ph)
-
-	def POST(self):
-		i = web.input()
-		s = model.update_profile(i.firstname,i.lastname,i.username,i.phone,i.email,i.category,i.country,i.dob)
+		t=str(i.tags)
+		tg=json.dumps(t.split(","))
+		p=model.upload_video_info(i.id,i.name,i.description,tg,countries,i.category,session.user,age,th)
 		raise web.seeother('/about')
 
-class Comment:
 
-	def POST(self):
-		i = web.input()
-		s = model.send_comment(i.commenttext)
-		return i	
+	
 """-----------------------------------------------------------------------------"""
 class Videos:
     def GET(self,video_id):
@@ -239,17 +438,9 @@ class Thumbnails:
 		s=model.get_thumbnail(id)		
 		return s
 
-class VideoName:
-    def GET(self,video_id):
-		id=int(video_id)
-		s=model.get_videoname(id)		
-		return s
 
-class Uploader:
-    def GET(self,video_id):
-		id=int(video_id)
-		s=model.get_uploader(id)		
-		return s
+
+
 
 class Logout:
     def GET(self):
@@ -258,27 +449,63 @@ class Logout:
 """------------------------------------------------------------------"""		
 
 
-class About:
+class MyProfile:
 	def GET(self):
-		if session.user=='username':
-			raise web.seeother('/')
-		else: 	
-			return render.about(session.user)
+		u=model.get_user_stats(session.user)
+		return render.myprofile(session.user,model.get_firstname(session.user)['firstname'],u['joined'],u['likes'],u['dislikes'],u['subscribers'])
 
 class Uploads:
 
 	def GET(self):
-		return render.uploads()
+		s=model.get_uploads(session.user)
+		t=s['videouploads']
+ 		videonames=[]
+		for i in range(len(t)):
+			videonames.append(model.get_videoname(t[i])['name'])
+		uploaders=[]
+		for i in range(len(t)):
+			uploaders.append(model.get_uploader(t[i])['uploader'])
+		return render.uploads(session.user,t,videonames,uploaders,model.get_firstname(session.user)['firstname'])
 
 class Statistics:
 
 	def GET(self):
-		return render.statistics()
+		s=model.get_uploads(session.user)
+		t=s['videouploads']
+ 		videonames=[]
+		for i in range(len(t)):
+			videonames.append(model.get_videoname(t[i])['name'])
+		uploaders=[]
+		for i in range(len(t)):
+			uploaders.append(model.get_uploader(t[i])['uploader'])
+		return render.statistics(session.user,t,videonames,uploaders,model.get_firstname(session.user)['firstname'])
 
-class MyUpload:
+"""-------------------------------------------------------------------------------------------------------"""
 
+
+
+class History:
 	def GET(self):
-		return render.upload()
+		return render.history()
+
+class Demo:
+	def GET(self,video_id):
+		
+		id=int(video_id)
+		s=model.get_videodesc(id)
+		#if s['id']==session.user:
+		id1=s['id']
+		name=s['name']
+		uploader=s['uploader']
+		description=s['description']
+		category=s['category']
+		if s['countries']!=None:
+			countries=ast.literal_eval(s['countries'])
+		else:
+			countries=None
+		age=s['age']		
+		tags=ast.literal_eval(s['tags'])
+		return render.demo(session.user,int(id1),name,description,category,countries,int(age),','.join(tags))
 
 
 if __name__ == "__main__":

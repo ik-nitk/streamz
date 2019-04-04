@@ -1,5 +1,5 @@
-$def with (username)
-<title>::HOMEPAGE::</title>
+$def with (username,firstname,profileusername,joined,likes,dislikes,subscribers)
+<title>::ABOUT::</title>
 <style>
     /*
     font-family: 'Abel', sans-serif;
@@ -42,7 +42,7 @@ $def with (username)
         bottom:0;
         height:100%-70px;
         left:0;
-        width:60px;
+        width:250px;
         overflow:hidden;
         transition: width 0.2s linear;
         z-index:1000;
@@ -234,80 +234,103 @@ $def with (username)
     }
 
 /*Content*/
+    .content{
+        padding:70px 10px 10px 260px;
+    }
+
     .grid-container {
-        display: grid;
-        grid-template-columns: auto auto auto auto auto;
-        margin:0px;
-        padding: 0;
-        
+      display: grid;
+      grid-template-columns: auto auto;
+      margin:0px;
+      
+      padding: 0;
+     
     }
     .grid-item {
-        color:#FFF;        
-        padding: 0%;
-        font-size: 30px;
-        text-align: center;       
-    } 
-    .content {
-        padding:70px 10px 0 70px;
-    }  
+      color:#FFF;
+      font-size: 30px;
+      text-align: center;
+       
+    }
+    .aclass {
+        color:#e2e2e2;
+        background-color: #e46226;
+        font-weight: bolder;
+    }
+    .aclass:hover {
+        color:#FFF;
+    }
 </style>
+
+
 <style>
+    @media screen and (min-width: 750px) and (max-width: 900px)
+    {
+        .search-container
+        {
+            width:20%;
+        }
 
-    
+        .content{
+            padding:70px 10px 10px 0px;
+        }
 
-@media screen and (min-width: 750px) and (max-width: 900px)
-{
-    .search-container
-    {
-        width:20%;
+        #navicon{
+            visibility: visible;
+            float: left;
+            display: block;
+            color: #e46226;
+            text-align: center;
+            padding:10px 20px;
+            text-decoration: none;        
+            font-family: 'Abel', sans-serif;
+            font-size: 40px;
+            font-weight: 900;
+            left:0;
+            position: relative;
+        }
     }
-    .username
+
+    @media screen and (max-width: 750px)
     {
-        display:none;
-    }
-}
-  
-@media screen and (max-width: 750px)
-{
-    .main-menu
-    {
-        width:0px;
-    }
-      
-    #lang-selector
-    {
-        display:none;
-    }
-    #navicon{
-        visibility: visible;
-        float: left;
-        display: block;
-        color: #e46226;
-        text-align: center;
-        padding:10px 20px;
-        text-decoration: none;        
-        font-family: 'Abel', sans-serif;
-        font-size: 40px;
-        font-weight: 900;
-        left:0;
-        position: relative;
+        .main-menu
+        {
+            width:0px;
+        }
+        
+        #lang-selector
+        {
+            display:none;
+        }
+        #navicon{
+            visibility: visible;
+            float: left;
+            display: block;
+            color: #e46226;
+            text-align: center;
+            padding:10px 20px;
+            text-decoration: none;        
+            font-family: 'Abel', sans-serif;
+            font-size: 40px;
+            font-weight: 900;
+            left:0;
+            position: relative;
+        } 
+        .username
+        {
+            display:none;
+        } 
+        .grid-container {
+            grid-template-columns: auto;
+        }
+        .content {
+            padding:70px 10px 0 10px;
+        } 
     } 
-    .username
-    {
-        display:none;
-    } 
-    .grid-container {
-        grid-template-columns: auto;
-    }
-    .content {
-        padding:70px 10px 0 10px;
-    } 
-} 
 
 </style>
 </head>
 <body>
-
 
     <nav class="main-menu" id="navbar2">
         <ul>
@@ -344,7 +367,7 @@ $def with (username)
                 <a href="/uploads"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOADS</span></a>
             </li>
             <li>
-                <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
+                <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i>\<span class="nav-text">STATISTICS</span></a>
             </li>
             <li class="has-subnav">
                 <a href=""><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
@@ -352,7 +375,7 @@ $def with (username)
         </ul>    
         <ul class="logout">
             <li>
-                <a href="./logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">LOGOUT</span></a>
+                <a href="./logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">Logout</span></a>
             </li>
         </ul>    
     </nav>
@@ -374,116 +397,106 @@ $def with (username)
     </div>
 
             
- <div class="content" >
+            
 
-        <h1 style="color:white; font-family: 'Montserrat', sans-serif;">MOST POPULAR VIDEOS</h1>
-                <div class="grid-container">
-    
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
+                <div class="content">
+
+                        
+
+
+
+                    <img src="http://0.0.0.0:8080/coverpic/$username" width=100%; height=300px;>
+                    <br/><br/>
+                    <div style="height:60px; background-color: #e46226;">
+                        <a class="aclass" href="/profile/$profileusername"><div style="padding:1%; float:left;">PROFILE</div></a>
+                        <a class="aclass" href="/profileuploads/$profileusername"><div style="padding:1%; float:left;">UPLOADS</div></a>
                     </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
+
+                    <div class="container-fluid">                    
+                        <div class="" style=" float:left; padding:1%;" >
+                                <img class=".img-circle" style="border-radius: 70%; height:200px; width:200px;" src="http://0.0.0.0:8080/profilepic/$username" width=100%>                               
+                        </div>
+                        <div class="" style="float:left; color:#FFF; width:200px; text-align:center;">
+                            <h1><br/><br/>$firstname</h1>      
+                            <h4>$username</h4>                            
+                        </div>
                     </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+<br/>
+<br/>
+
+
+        <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default" style=" background-color: #000; color:#FFF; border:none;">
+                                <div class="panel-heading" style=" background-color: #1a1818; color:#FFF; border:none;">  
+                                <p>DESCRIPTION</p>
+                                
                                 </div>
-                            
+                                <div class="panel-body container col-md-12" style=" background-color: #3a3535; color:#FFF;">
+                                            
+                                    <p>asdfghjknbfdertyjkmnbvcsghjnbvcdfghnbvcxsghnbvcdfgb</p>
+                                </div>
+                            </div>
                     </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+          
+                    <div class="col-md-6">
+                            <div class="panel panel-default" style=" background-color: #000; color:#FFF; border:none;">
+                                    <div class="panel-heading" style=" background-color: #1a1818; color:#FFF; border:none;">  
+                                    <p>STATS</p>
+                                    
+                                    </div>
+                                    <div class="panel-body container col-md-12" style=" background-color: #3a3535; color:#FFF;">
+                                                
+                                        <table class="table table-user-information" style=" background-color: #3a3535; color:#FFF;">
+                                            <tbody >
+                                                <tr>
+                                                <th style="border:none;">JOINED ON</th>
+                                                <td style="border:none;">$joined</td>
+                                                </tr>
+
+                                                <tr>
+                                                <th style="border:none;">VIEWS</th>
+                                                <td style="border:none;">sdfghj</td>
+                                                </tr>
+
+                                                <tr>
+                                                <th style="border:none;">LIKES</th>
+                                                <td style="border:none;">$likes</td>
+                                                </tr>
+
+                                                <tr>
+                                                <th style="border:none;">DISLIKES</th>
+                                                <td style="border:none;">$dislikes</td>
+                                                </tr>
+
+                                                <tr>
+                                                <th style="border:none;">SUBSCRIBERS</th>
+                                                <td style="border:none;">$subscribers</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            
-                    </div>
-                    <div class="grid-item">
-                            <img src="static/image/video1.png" width=100%>
-                            <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                            
-                    </div>   
-                   
+                        </div>
                 </div>
-
-                <h1 style="color:white; font-family: 'Montserrat', sans-serif;">MOST POPULAR CHANNELS</h1>
-                <div class="grid-container">
-                    
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>
-                        <div class="grid-item">
-                                <img style="border-radius: 50%;" src="static/image/video1.png" width=100%>
-                                <div>
-                                        <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                        <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                    </div>
-                                
-                        </div>   
-                       
-                    </div>
+        </div>
 </div>
+ 
+
+
 
  <script>
-    function openNav() {
-        var x = document.getElementById("navbar2");
-        if(x.style.width == "250px")
-            x.style.width = "0px";
-        else
-            x.style.width = "250px";
+                        function openNav() {
+                            var x = document.getElementById("navbar2");
+                            if(x.style.width == "250px")
+                                x.style.width = "0px";
+                            else
+                                x.style.width = "250px";
+                        
+                        }
+                                           
+                        
+                        </script>
 
-    }
-</script>
 
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-    }
-</script>
-    
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

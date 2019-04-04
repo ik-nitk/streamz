@@ -15,7 +15,8 @@ def get_videodesc(id):
 	cat=row[6]
 	count=row[7]
 	age=row[8]
-	params={'id':id, 'name':nm, 'uploader':upl, 'description':des, 'category':cat, 'countries':count, 'age':age}
+	tags=row[9]
+	params={'id':id, 'name':nm, 'uploader':upl, 'description':des, 'category':cat, 'countries':count, 'age':age, 'tags':tags}
 	return json.dumps(params)
 
 def get_video(id):
@@ -72,12 +73,45 @@ def upload_thumbnail(name,thumbnailpath):
 	return json.dumps(params)
 		
 
-def update_video_desc(id,thumbnail,name,description,category,country,age):
+def update_video_desc(id,thumbnail,name,description,category,country,age,tags):
 	if thumbnail=='':
-		db.update('video', where='id= $id',vars=locals(), name=name,description=description,category=category,country=country,age=age)
+		db.update('video', where='id= $id',vars=locals(), name=name,description=description,category=category,country=country,age=age,tags=tags)
 	else:
-		db.update('video', where='id= $id',vars=locals(), name=name, thumbnail=thumbnail,description=description,category=category,country=country,age=age)
+		db.update('video', where='id= $id',vars=locals(), name=name, thumbnail=thumbnail,description=description,category=category,country=country,age=age,tags=tags)
 	return "success"
 
-def del_video(id):
-    db.delete('videos', where="id=$id", vars=locals())
+def get_uploads(username):
+	data = db.select('video', order='id')
+	authdb = sqlite3.connect('videos.db')
+	c= authdb.execute('select id from video where uploader=?',[username])
+	row = c.fetchall()
+	l=[]
+	for i in range(len(row)):
+		l.append(row[i][0])
+	params={'videouploads':l}
+	return json.dumps(params)
+
+
+def delete_video(id):
+	db.delete('video', where="id=$id", vars=locals())
+	params={'status':"Deleted"}
+	return json.dumps(params)
+
+def update_likestatus(id,likes,dislikes):
+	db.update('video', where='id= $id',vars=locals(), likes=likes,dislikes=dislikes)
+	params={'status':"updated"}
+	return json.dumps(params)
+
+def get_channel_likes_count(uploader):
+	data = db.select('video', order='id')
+	authdb = sqlite3.connect('videos.db')
+	c= authdb.execute('select likes,dislikes from video where uploader=?',[uploader])
+	row = c.fetchall()
+	likes=0
+	for i in range(len(row)):
+		likes+=row[i][0]
+	dislikes=0
+	for i in range(len(row)):
+		dislikes+=row[i][1]
+	params={'uploader':uploader,'likescount':likes,'dislikescount':dislikes}
+	return json.dumps(params)

@@ -12,7 +12,34 @@ urls = ('/getvideodesc', 'GetVideoDesc',
         '/getuploader', 'GetUploader',
         '/getdescription', 'GetDescription',
 	'/updatevideoinfo', 'UpdateVideoInfo',
+        '/getuploads','GetUploads',
+        '/deletevideo','DeleteVideo',
+        '/updatelikestatus','UpdateLikeStatus',
+        '/getchannellikescount','GetChannelLikesCount',
 )
+class GetChannelLikesCount:
+        def POST(self):
+                data=web.data()
+                upl=json.loads(data)['uploader']
+                s=model.get_channel_likes_count(upl)
+                return s
+
+class UpdateLikeStatus:
+        def POST(self):
+                data=web.data()
+                vid=json.loads(data)['videoid']
+                lks=json.loads(data)['likes']
+                dlks=json.loads(data)['dislikes']
+                s=model.update_likestatus(vid,lks,dlks)
+                return s
+
+class DeleteVideo:
+    
+        def POST(self):
+                data=web.data()
+                id=json.loads(data)['id']
+                s=model.delete_video(id)
+                return s
 
 class GetVideo:
     
@@ -55,7 +82,6 @@ class GetUploader:
                 return s
 
 class GetVideoDesc:
-    
         def POST(self):
                 data=web.data()
                 id=json.loads(data)['vid']
@@ -63,40 +89,46 @@ class GetVideoDesc:
                 return s
 
 class UploadVideo:
-    def POST(self):
-        web.header('Access-Control-Allow-Origin','*')
-        web.header('Access-Control-Allow-Credentials', 'true')
-        data = web.input()
-        filename=data['name']
-        uploader=data['uploader']
-        fout = open('static/videos' +'/'+ filename,'w')
-        fout.write(data['file']) 
-        fout.close() 
-        res = model.upload_video(filename,'static/videos/' + filename, uploader)
-        return res
+        def POST(self):
+                web.header('Access-Control-Allow-Origin','*')
+                web.header('Access-Control-Allow-Credentials', 'true')
+                data = web.input()
+                filename=data['name']
+                uploader=data['uploader']
+                fout = open('static/videos' +'/'+ filename,'w')
+                fout.write(data['file']) 
+                fout.close() 
+                res = model.upload_video(filename,'static/videos/' + filename, uploader)
+                return res
 
 class UpdateVideo:
-    def POST(self):
-        web.header('Access-Control-Allow-Origin','*')
-        web.header('Access-Control-Allow-Credentials', 'true')
-        data = web.input()
-        filename=data['thumbnail_name']
-        videoname=data['video_name']
-        description=data['description']
-        category=data['category']
-        country=data['countries']
-        age=data['age']
+        def POST(self):
+                web.header('Access-Control-Allow-Origin','*')
+                web.header('Access-Control-Allow-Credentials', 'true')
+                data = web.input()
+                filename=data['thumbnail_name']
+                videoname=data['video_name']
+                description=data['description']
+                category=data['category']
+                country=data['countries']
+                age=data['age']
+                tags=data['tags']
+                id=data['id']
+                if filename!="":
+                        fout = open('static/thumbnails' +'/'+ filename,'w')
+                        fout.write(data['thumbnail_file']) 
+                        fout.close() 
+                        s=model.update_video_desc(id,'static/thumbnails/' + filename,videoname,description,category,country,age,tags)
+                else:
+                        s=model.update_video_desc(id,'',videoname,description,category,country,age,tags)
+                return s
 
-        id=data['id']
-        if filename!="":
-                fout = open('static/thumbnails' +'/'+ filename,'w')
-                fout.write(data['thumbnail_file']) 
-                fout.close() 
-                s=model.update_video_desc(id,'static/thumbnails/' + filename,videoname,description,category,country,age)
-        else:
-                s=model.update_video_desc(id,'',videoname,description,category,country,age)
-        return s
-
+class GetUploads:
+        def POST(self):
+                data=web.data()
+                un=json.loads(data)['username']
+                s=model.get_uploads(un)
+                return s
 
 app = web.application(urls, globals())
 
