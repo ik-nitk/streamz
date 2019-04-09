@@ -1,4 +1,4 @@
-$def with (username,firstname,joined,likes,dislikes,subscribers)
+$def with (username,firstname,fn,ln,db,abt,eml,ph,cntry,joined,likes,dislikes,subscribers)
 <title>::ABOUT::</title>
 <style>
     /*
@@ -187,6 +187,7 @@ $def with (username,firstname,joined,likes,dislikes,subscribers)
     .search-container {
         float: left;
         width:40%;
+        margin-left:10%;
     }
 
     .topnav input[type=text] {
@@ -333,69 +334,73 @@ $def with (username,firstname,joined,likes,dislikes,subscribers)
 </head>
 <body>
 
-    <nav class="main-menu" id="navbar2">
-        <ul>
-            <li>
-                <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-fire fa-2x"></i><span class="nav-text">TRENDING</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
-            </li>                
-            <div style=" padding:0px 10px;"><hr/></div> 
-            <li>
-                <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
-            </li>
-            <li>
-                <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
-            </li>
-            <li>
-                <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
-            </li>
-            <li>
-                <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
-            </li>
-            <li>
-                <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
-            </li>
-            <div style=" padding:0px 10px;"><hr/></div>
-            <li>
-                <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
-            </li>
-            <li>
-                <a href="/uploads"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOADS</span></a>
-            </li>
-            <li>
-                <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
-            </li>
-        </ul>    
-        <ul class="logout">
-            <li>
-                <a href="./logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">Logout</span></a>
-            </li>
-        </ul>    
-    </nav>
-
-    <div class="topnav" style="">
-        <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
-        <a class="logo" href="/">STREAMZ</a>
-        <a class="username" href="/myprofile">$username</a>        
-        <div class="search-container" style="margin-left:10%;">
-            <form method="POST" action="search">
-            <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
-            <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
-            </form>
-        </div>
-        &nbsp &nbsp &nbsp
-        <div style="float:right; margin-top:20px;" id="google_translate_element">
-        </div>
-    </div>
-
+        <nav class="main-menu" id="navbar2">
+                <ul>
+                        <li class="has-subnav">
+                                <a href="/uploadvideo"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOAD VIDEO</span></a>
+                            </li>                
+                            <div style=" padding:0px 10px;"><hr/></div> 
+                        <li>
+                            <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
+                        </li>
+                        <li class="has-subnav">
+                            <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
+                        </li>                
+                        <div style=" padding:0px 10px;"><hr/></div> 
+                        <li>
+                            <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
+                        </li>
+                        <li>
+                            <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
+                        </li>
+                        <li>
+                            <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
+                        </li>
+                        <li>
+                            <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
+                        </li>
+                        <li>
+                            <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
+                        </li>
+                        <div style=" padding:0px 10px;"><hr/></div>
+                        <li>
+                            <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
+                        </li>
+                        <li>
+                            <a href="/uploads"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">UPLOADS</span></a>
+                        </li>
+                        <li>
+                            <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
+                        </li>
+                        <li class="has-subnav">
+                            <a href="/history"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
+                        </li>
+                </ul>    
+                <ul class="logout">
+                    <li>
+                        <a href="../logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">LOGOUT</span></a>
+                    </li>
+                </ul>    
+            </nav>
+        
+        
+        
+        
+            <div class="topnav" style="">
+                    <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
+                    <a class="logo" href="/">STREAMZ</a>
+                    <a class="username" href="/myprofile">$firstname</a>        
+                    <div class="search-container">
+                        <form method="POST" action="../search">
+                        <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
+                        <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
+                        </form>
+                    </div>
+                    &nbsp &nbsp &nbsp
+                    <div style="float:right; margin-top:20px;" id="google_translate_element">
+                    </div>
+                    <a class="username" href="/uploadvideo"><i class="fa fa-upload fa-2x"></i></a>
+                </div>
 
             
             
@@ -423,6 +428,7 @@ $def with (username,firstname,joined,likes,dislikes,subscribers)
                             <h4>$username</h4>                            
                         </div>
                     </div>
+                    <a href="/updateprofile"><button class="btn" style="float:right; background-color: #e46226; color:#FFF;">Edit Profile</button></a>
 <br/>
 <br/>
 
@@ -432,12 +438,53 @@ $def with (username,firstname,joined,likes,dislikes,subscribers)
                     <div class="col-md-6">
                         <div class="panel panel-default" style=" background-color: #000; color:#FFF; border:none;">
                                 <div class="panel-heading" style=" background-color: #1a1818; color:#FFF; border:none;">  
-                                <p>DESCRIPTION<span><a href=""><button type="submit" class="btn" style="float:right; background-color: #e46226; color:#FFF;">Edit</button></a></span></p>
+                                <p>DESCRIPTION<span><a href=""></span></p>
                                 
                                 </div>
                                 <div class="panel-body container col-md-12" style=" background-color: #3a3535; color:#FFF;">
                                             
-                                    <p>asdfghjknbfdertyjkmnbvcsghjnbvcdfghnbvcxsghnbvcdfgb</p>
+                                    <table class="table table-user-information" style=" background-color: #3a3535; color:#FFF;">
+                                        <tbody >
+                                            <tr>
+                                            <th style="border:none;">FIRST NAME:</th>
+                                            <td style="border:none;">$fn</td>
+                                            </tr>
+
+                                            <tr>
+                                            <th style="border:none;">LAST NAME:</th>
+                                            <td style="border:none;">$ln</td>
+                                            </tr>
+
+                                            <tr>
+                                            <th style="border:none;">EMAIL:</th>
+                                            <td style="border:none;">$eml</td>
+                                            </tr>
+
+                                            <tr>
+                                            <th style="border:none;">PHONE NO.:</th>
+                                            <td style="border:none;">$ph</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                            <th style="border:none;">DATE OF BIRTH:</th>
+                                            <td style="border:none;">$db</td>
+                                            </tr>
+
+                                            <tr>
+                                            <th style="border:none;">COUNTRY:</th>
+                                            <td style="border:none;">$cntry</td>
+                                            </tr>
+
+                                            <tr>
+                                            <th style="border:none;">ABOUT:</th>
+                                            <td style="border:none;">$abt</td>
+                                            </tr>
+
+                                            
+
+                                            
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                     </div>

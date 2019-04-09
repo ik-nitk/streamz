@@ -241,3 +241,19 @@ def get_user_stats(username):
 	row = c.fetchall()
 	params={'joined':row[0][0],'likes':row[0][1],'dislikes':row[0][2],'subscribers':row[0][3]}
 	return json.dumps(params)
+
+def add_history(username,videoid):
+	db.insert('history', username=username, videoid=videoid)
+	params={'status':"Added"}
+	return json.dumps(params)
+
+def get_history(username):
+	authdb = sqlite3.connect('streamz.db')
+	c= authdb.execute('select videoid from history where username=?',[username])
+	row = c.fetchall()
+	videoids=[]
+	for i in range(len(row)):
+		videoids.append(row[i][0])
+	params={'videoids':videoids}
+	return json.dumps(params)
+

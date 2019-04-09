@@ -29,7 +29,32 @@ urls = ('/login', 'Login',
         '/updatesubscribestatus','UpdateSubscribeStatus',
         '/updatechannellikestatuscount','UpdateChannelLikesStatusCount',
         '/getuserstats','GetUserStats',
+        '/addhistory','AddHistory',
+        '/gethistory','GetHistory',
         )
+
+class AddViews:
+        def POST(self):
+                data=web.data()
+                un=json.loads(data)['username']
+                vid=json.loads(data)['videoid']
+                s=model.add_views(un,vid)
+                return s
+
+class GetHistory:
+        def POST(self):
+                data=web.data()
+                un=json.loads(data)['username']
+                s=model.get_history(un)
+                return s
+
+class AddHistory:
+        def POST(self):
+                data=web.data()
+                un=json.loads(data)['username']
+                vid=json.loads(data)['videoid']
+                s=model.add_history(un,vid)
+                return s
 
 class GetUserStats:
         def POST(self):

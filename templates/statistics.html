@@ -1,4 +1,4 @@
-$def with (username, result,videoname,uploader,firstname)
+$def with (username,firstname, result,videoname,uploader,description,like,dislike)
 <title>::STATISTICS::</title>
 <style>
     /*
@@ -187,6 +187,7 @@ $def with (username, result,videoname,uploader,firstname)
     .search-container {
         float: left;
         width:40%;
+        margin-left:10%;
     }
 
     .topnav input[type=text] {
@@ -278,9 +279,9 @@ $def with (username, result,videoname,uploader,firstname)
         border: none;
         cursor: pointer;
         text-align:center;
-        
-        
     }
+
+
     .aclass {
         color:#e2e2e2;
         background-color: #e46226;
@@ -288,7 +289,7 @@ $def with (username, result,videoname,uploader,firstname)
     }
     .aclass:hover {
         color:#FFF;
-    }  
+    } 
 </style>
 
 
@@ -335,11 +336,11 @@ $def with (username, result,videoname,uploader,firstname)
         #navicon{
             visibility: visible;
             float: left;
-                display: block;
-                color: #e46226;
-                text-align: center;
-                padding:10px 20px;
-                text-decoration: none;        
+            display: block;
+            color: #e46226;
+            text-align: center;
+            padding:10px 20px;
+            text-decoration: none;        
             font-family: 'Abel', sans-serif;
             font-size: 40px;
             font-weight: 900;
@@ -378,8 +379,37 @@ $def with (username, result,videoname,uploader,firstname)
             padding:0px 0px 0px 0px;
         } 
 
-    }
+
+    .username {
+            display:none;
+        }
+        .logo {
+            float: left;
+            display: block;
+            color: #e46226;
+            text-align: center;
+            padding:15px 20px;
+            text-decoration: none;        
+            font-family: 'Abel', sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+
+        }
+        .search-container {
+            float: left;
+            width:50%;
+            margin-left:1%;
+        }
+        .searchlist{
+            padding:100px 0px 0px 0px;
+        } 
+
+
+
+
+}
 </style>
+
 
 
 
@@ -389,67 +419,71 @@ $def with (username, result,videoname,uploader,firstname)
 
     <nav class="main-menu" id="navbar2">
         <ul>
-            <li>
-                <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-fire fa-2x"></i><span class="nav-text">TRENDING</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
-            </li>                
-            <div style=" padding:0px 10px;"><hr/></div> 
-            <li>
-                <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
-            </li>
-            <li>
-                <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
-            </li>
-            <li>
-                <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
-            </li>
-            <li>
-                <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
-            </li>
-            <li>
-                <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
-            </li>
-            <div style=" padding:0px 10px;"><hr/></div>
-            <li>
-                <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
-            </li>
-            <li>
-                <a href="/uploads"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOADS</span></a>
-            </li>
-            <li>
-                <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
-            </li>
+                <li class="has-subnav">
+                        <a href="/uploadvideo"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOAD VIDEO</span></a>
+                    </li>                
+                    <div style=" padding:0px 10px;"><hr/></div> 
+                <li>
+                    <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
+                </li>
+                <li class="has-subnav">
+                    <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
+                </li>                
+                <div style=" padding:0px 10px;"><hr/></div> 
+                <li>
+                    <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
+                </li>
+                <li>
+                    <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
+                </li>
+                <li>
+                    <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
+                </li>
+                <li>
+                    <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
+                </li>
+                <li>
+                    <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
+                </li>
+                <div style=" padding:0px 10px;"><hr/></div>
+                <li>
+                    <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
+                </li>
+                <li>
+                    <a href="/uploads"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">UPLOADS</span></a>
+                </li>
+                <li>
+                    <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
+                </li>
+                <li class="has-subnav">
+                    <a href="/history"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
+                </li>
         </ul>    
         <ul class="logout">
             <li>
-                <a href="./logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">Logout</span></a>
+                <a href="./logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">LOGOUT</span></a>
             </li>
         </ul>    
     </nav>
 
 
+
+
     <div class="topnav" style="">
-        <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
-        <a class="logo" href="/">STREAMZ</a>
-        <a class="username" href="/myprofile">$username</a>        
-        <div class="search-container" style="margin-left:10%;">
-            <form method="POST" action="search">
-            <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
-            <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
-            </form>
+            <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
+            <a class="logo" href="/">STREAMZ</a>
+            <a class="username" href="/myprofile">$firstname</a>        
+            <div class="search-container">
+                <form method="POST" action="search">
+                <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
+                <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
+                </form>
+            </div>
+            &nbsp &nbsp &nbsp
+            <div style="float:right; margin-top:20px;" id="google_translate_element">
+            </div>
+            <a class="username" href="/uploadvideo"><i class="fa fa-upload fa-2x"></i></a>
         </div>
-        &nbsp &nbsp &nbsp
-        <div style="float:right; margin-top:20px;" id="google_translate_element">
-        </div>
-    </div>
 
             
             
@@ -482,18 +516,19 @@ $def with (username, result,videoname,uploader,firstname)
         <div class="searchlist" >
                 $for i in range(len(result)):
                     <div class="grid-container" style="width:100%;">
-                            <div class="item1" style="width:100%">
-                                <img  src="http://0.0.0.0:8080/thumbnails/$result[i]"  >
-                            </div>
-                            <div class="item2" style="width:100%">
-                                <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">$videoname[i]</p>
-                                <p style="font-family: 'Patua One', cursive; font-size: 20px">$uploader[i]</p>
-                            </div>
-                            <div class="item3" style="width:100%">
-                                <p>Likes:</p>
-                                <p>Dislikes:</p>
-                                <p>Views:</p>
-                            </div>
+                        <div class="item1" style="width:100%">
+                            <a style="width:100%" href="/play/$result[i]"><img width=100% src="http://0.0.0.0:8080/thumbnails/$result[i]"></a>
+                        </div>
+                        <div class="item2" style="width:100%">
+                            <a href="/play/$result[i]"><p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#f5eeee; font-size: 30px; font-weight: bold;">$videoname[i]</p></a>
+                            <a href="/profile/$uploader[i]"><p style="font-family: 'Patua One', cursive; color:#ccc; font-size: 20px">$uploader[i]</p></a>
+                            <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; font-size: 15px">$description[i]</p>
+                        </div>
+                        <div class="item3" style="width:100%">
+                            <br/>
+                            <p style="font-family:'Patua One', cursive; color:#ccc; font-size: 20px">Likes:<span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#fff;"> $like[i]</span></p>
+                            <p style="font-family:'Patua One', cursive; color:#ccc; font-size: 20px">Dislikes:<span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#FFF;"> $dislike[i]</span></p>
+                        </div>
                             
                     </div><br/>
                 

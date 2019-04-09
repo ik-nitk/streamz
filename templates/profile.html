@@ -187,6 +187,7 @@ $def with (username,firstname,profileusername,joined,likes,dislikes,subscribers)
     .search-container {
         float: left;
         width:40%;
+        margin-left: 10%;
     }
 
     .topnav input[type=text] {
@@ -334,67 +335,72 @@ $def with (username,firstname,profileusername,joined,likes,dislikes,subscribers)
 
     <nav class="main-menu" id="navbar2">
         <ul>
-            <li>
-                <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-fire fa-2x"></i><span class="nav-text">TRENDING</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
-            </li>                
-            <div style=" padding:0px 10px;"><hr/></div> 
-            <li>
-                <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
-            </li>
-            <li>
-                <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
-            </li>
-            <li>
-                <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
-            </li>
-            <li>
-                <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
-            </li>
-            <li>
-                <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
-            </li>
-            <div style=" padding:0px 10px;"><hr/></div>
-            <li>
-                <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
-            </li>
-            <li>
-                <a href="/uploads"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOADS</span></a>
-            </li>
-            <li>
-                <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i>\<span class="nav-text">STATISTICS</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
-            </li>
+                <li class="has-subnav">
+                        <a href="/uploadvideo"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOAD VIDEO</span></a>
+                    </li>                
+                    <div style=" padding:0px 10px;"><hr/></div> 
+                <li>
+                    <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
+                </li>
+                <li class="has-subnav">
+                    <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
+                </li>                
+                <div style=" padding:0px 10px;"><hr/></div> 
+                <li>
+                    <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
+                </li>
+                <li>
+                    <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
+                </li>
+                <li>
+                    <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
+                </li>
+                <li>
+                    <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
+                </li>
+                <li>
+                    <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
+                </li>
+                <div style=" padding:0px 10px;"><hr/></div>
+                <li>
+                    <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
+                </li>
+                <li>
+                    <a href="/uploads"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">UPLOADS</span></a>
+                </li>
+                <li>
+                    <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
+                </li>
+                <li class="has-subnav">
+                    <a href="/history"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
+                </li>
         </ul>    
         <ul class="logout">
             <li>
-                <a href="./logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">Logout</span></a>
+                <a href="../logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">LOGOUT</span></a>
             </li>
         </ul>    
     </nav>
 
 
+
+
     <div class="topnav" style="">
-        <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
-        <a class="logo" href="/">STREAMZ</a>
-        <a class="username" href="/myprofile">$username</a>        
-        <div class="search-container" style="margin-left:10%;">
-            <form method="POST" action="search">
-            <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
-            <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
-            </form>
+            <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
+            <a class="logo" href="/">STREAMZ</a>
+            <a class="username" href="/myprofile">$username</a>        
+            <div class="search-container">
+                <form method="POST" action="../search">
+                <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
+                <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
+                </form>
+            </div>
+            &nbsp &nbsp &nbsp
+            <div style="float:right; margin-top:20px;" id="google_translate_element">
+            </div>
+            <a class="username" href="/uploadvideo"><i class="fa fa-upload fa-2x"></i></a>
         </div>
-        &nbsp &nbsp &nbsp
-        <div style="float:right; margin-top:20px;" id="google_translate_element">
-        </div>
-    </div>
+
 
             
             
@@ -486,17 +492,24 @@ $def with (username,firstname,profileusername,joined,likes,dislikes,subscribers)
 
 
 
- <script>
-                        function openNav() {
-                            var x = document.getElementById("navbar2");
-                            if(x.style.width == "250px")
-                                x.style.width = "0px";
-                            else
-                                x.style.width = "250px";
-                        
-                        }
-                                           
-                        
-                        </script>
+<script>
+    function openNav() {
+        var x = document.getElementById("navbar2");
+        if(x.style.width == "250px")
+            x.style.width = "0px";
+        else
+            x.style.width = "250px";
+
+    }
+</script>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    }
+</script>
+    
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 
 

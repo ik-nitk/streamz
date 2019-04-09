@@ -1,4 +1,4 @@
-$def with (username, subscriptions,firstname)
+$def with (username,firstname, subscriptions)
 <title>::UPLOADS::</title>
 <style>
     /*
@@ -187,6 +187,7 @@ $def with (username, subscriptions,firstname)
     .search-container {
         float: left;
         width:40%;
+        margin-left:10%;
     }
 
     .topnav input[type=text] {
@@ -360,6 +361,7 @@ $def with (username, subscriptions,firstname)
         grid-template-columns: 100%;
         grid-gap: 00px;        
         padding: 00px;
+        padding-top:20%;
         }
 
         
@@ -368,6 +370,7 @@ $def with (username, subscriptions,firstname)
         color:#FFFFFF;
         text-align: left;
         font-size: 30px;
+        padding-top:20%;
         }  
         .grid-container > div > img {
             width:100%; 
@@ -387,44 +390,45 @@ $def with (username, subscriptions,firstname)
 
     <nav class="main-menu" id="navbar2">
         <ul>
-            <li>
-                <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-fire fa-2x"></i><span class="nav-text">TRENDING</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
-            </li>                
-            <div style=" padding:0px 10px;"><hr/></div> 
-            <li>
-                <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
-            </li>
-            <li>
-                <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
-            </li>
-            <li>
-                <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
-            </li>
-            <li>
-                <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
-            </li>
-            <li>
-                <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
-            </li>
-            <div style=" padding:0px 10px;"><hr/></div>
-            <li>
-                <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
-            </li>
-            <li>
-                <a href="/uploads"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOADS</span></a>
-            </li>
-            <li>
-                <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
-            </li>
+                <li class="has-subnav">
+                        <a href="/uploadvideo"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOAD VIDEO</span></a>
+                    </li>                
+                    <div style=" padding:0px 10px;"><hr/></div> 
+                <li>
+                    <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
+                </li>
+                <li class="has-subnav">
+                    <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
+                </li>                
+                <div style=" padding:0px 10px;"><hr/></div> 
+                <li>
+                    <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
+                </li>
+                <li>
+                    <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
+                </li>
+                <li>
+                    <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
+                </li>
+                <li>
+                    <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
+                </li>
+                <li>
+                    <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
+                </li>
+                <div style=" padding:0px 10px;"><hr/></div>
+                <li>
+                    <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
+                </li>
+                <li>
+                    <a href="/uploads"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">UPLOADS</span></a>
+                </li>
+                <li>
+                    <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
+                </li>
+                <li class="has-subnav">
+                    <a href="/history"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
+                </li>
         </ul>    
         <ul class="logout">
             <li>
@@ -434,20 +438,23 @@ $def with (username, subscriptions,firstname)
     </nav>
 
 
+
+
     <div class="topnav" style="">
-        <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
-        <a class="logo" href="/">STREAMZ</a>
-        <a class="username" href="/myprofile">$username</a>        
-        <div class="search-container" style="margin-left:10%;">
-            <form method="POST" action="search">
-            <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
-            <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
-            </form>
+            <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
+            <a class="logo" href="/">STREAMZ</a>
+            <a class="username" href="/myprofile">$firstname</a>        
+            <div class="search-container">
+                <form method="POST" action="../search">
+                <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
+                <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
+                </form>
+            </div>
+            &nbsp &nbsp &nbsp
+            <div style="float:right; margin-top:20px;" id="google_translate_element">
+            </div>
+            <a class="username" href="/uploadvideo"><i class="fa fa-upload fa-2x"></i></a>
         </div>
-        &nbsp &nbsp &nbsp
-        <div style="float:right; margin-top:20px;" id="google_translate_element">
-        </div>
-    </div>
 
 
             
@@ -458,16 +465,18 @@ $def with (username, subscriptions,firstname)
         $for i in range(len(subscriptions)):
             <div class="grid-container" style="width:100%;">
                 <div class="item1" style="width:100%">
-                    <img  src="http://0.0.0.0:8080/thumbnails/$subscriptions[i]"  >
+                    <center>
+                        <a  href="/profile/$subscriptions[i]"><img class=".img-circle" style="border-radius: 70%; height:250px; width:200px;" src="http://0.0.0.0:8080/profilepic/$subscriptions[i]" width=100%></a>                               
+                </center>
                 </div>
-                <div class="item2" style="width:100%">
-                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">$subscriptions[i]</p>                    
-                </div>
-                <div class="item3" style="width:100%">
+                <div class="item2" style="width:100%; padding-top:20%;">
+                    <a class="aclass" href="/profile/$subscriptions[i]"><p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">$subscriptions[i]</p></a>                   
+                
                     <form method="POST" action="/unsubscribe">
+                        <input value="0" style="display:none;" type="text" name="videoid"/>
                         <input value="$username" style="display:none;" type="text" name="username"/>
                         <input value="$subscriptions[i]" style="display:none;" type="text" name="uploader"/>
-                        <button style="background-color:grey;margin-top:2%" class="button">UNSUBSCRIBE</button>
+                        <button class="button"style="float:left; background-color: #CCC;margin-top:2%" class="subscribebutton">SUBSCRIBED</button>
                     </form><br/>     
                 </div>                        
             </div><br/>            

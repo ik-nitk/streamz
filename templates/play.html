@@ -1,4 +1,4 @@
-$def with (username,videoid,videoname,uploader,videodescription,likestatus,subscribestatus,commentid,commentusername,commentlist)
+$def with (username,firstname,videoid,videoname,uploader,videodescription,likestatus,subscribestatus,commentid,commentusername,commentlist,recomresult,recomvideoname,recomuploader,recomdescription)
 <title>::VIDEO::</title>
 <style>
    /*
@@ -182,11 +182,10 @@ $def with (username,videoid,videoname,uploader,videodescription,likestatus,subsc
         color: #e46226;
     }
 
-
-
     .search-container {
         float: left;
         width:40%;
+        margin-left:10%;
     }
 
     .topnav input[type=text] {
@@ -248,6 +247,14 @@ $def with (username,videoid,videoname,uploader,videodescription,likestatus,subsc
     .iclass {
         z-index:-10;
     }
+    .aclass {
+        color:#e2e2e2;
+        background-color: #e46226;
+        font-weight: bolder;
+    }
+    .aclass:hover {
+        color:#FFF;
+    } 
 
 
 /*Content*/
@@ -282,17 +289,7 @@ $def with (username,videoid,videoname,uploader,videodescription,likestatus,subsc
         width:100%;   
       }
 
-/*Subscribe*/
-    .subscribebutton {
-        float: right;
-        padding: 6px 10px;
-        
-        font-size: 17px;
-        border: none;
-        cursor: pointer;
-        text-align:center;
-        width:20%;        
-    }
+
         
 /*Comment*/
     .comment-container input[type=text] {
@@ -319,6 +316,10 @@ $def with (username,videoid,videoname,uploader,videodescription,likestatus,subsc
         width:20%;
           
         }
+    .video{
+        min-width:1000px; 
+        width:100%;
+    }
 
 </style>
     
@@ -327,6 +328,19 @@ $def with (username,videoid,videoname,uploader,videodescription,likestatus,subsc
     {
         .search-container {
             width:20%;
+        }
+        .video{
+        min-width:100%; 
+        width:100%;
+    }
+    .grid-container {
+            display: grid;
+            grid-template-areas:'video '
+            'recom'
+            'comment';
+            padding:5px;
+            padding-top:90px;  
+            padding-left:120px;     
         }
     }
         
@@ -370,106 +384,132 @@ $def with (username,videoid,videoname,uploader,videodescription,likestatus,subsc
         
         #navicon {
             visibility: visible;
-        }   
+        } 
+        .username {
+            display:none;
+        }
+        .logo {
+            float: left;
+            display: block;
+            color: #e46226;
+            text-align: center;
+            padding:15px 20px;
+            text-decoration: none;        
+            font-family: 'Abel', sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+
+        }
+        .search-container {
+            float: left;
+            width:50%;
+            margin-left:1%;
+        }
+        .video{
+        min-width:100%; 
+        width:100%;
+    }
+
     }    
 </style>
+
 
 </head>
 <body>
 
     <nav class="main-menu" id="navbar2">
         <ul>
-            <li>
-                <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-fire fa-2x"></i><span class="nav-text">TRENDING</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
-            </li>                
-            <div style=" padding:0px 10px;"><hr/></div> 
-            <li>
-                <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
-            </li>
-            <li>
-                <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
-            </li>
-            <li>
-                <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
-            </li>
-            <li>
-                <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
-            </li>
-            <li>
-                <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
-            </li>
-            <div style=" padding:0px 10px;"><hr/></div>
-            <li>
-                <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
-            </li>
-            <li>
-                <a href="/uploads"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOADS</span></a>
-            </li>
-            <li>
-                <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
-            </li>
-            <li class="has-subnav">
-                <a href=""><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
-            </li>
+                <li class="has-subnav">
+                        <a href="/uploadvideo"><i class="fa fa-upload fa-2x"></i><span class="nav-text">UPLOAD VIDEO</span></a>
+                    </li>                
+                    <div style=" padding:0px 10px;"><hr/></div> 
+                <li>
+                    <a href="/home"><i class="fa fa-home fa-2x"></i><span class="nav-text">HOME</span></a>
+                </li>
+                <li class="has-subnav">
+                    <a href="/subscription"><i class="fa fa-list fa-2x"></i><span class="nav-text">SUBSCRIPTION</span></a>
+                </li>                
+                <div style=" padding:0px 10px;"><hr/></div> 
+                <li>
+                    <a href="/categories/entertainment"><i class="fa fa-television fa-2x"></i><span class="nav-text">ENTERTAINMENT</span></a>
+                </li>
+                <li>
+                    <a href="/categories/news"><i class="fa fa-newspaper-o fa-2x"></i><span class="nav-text">NEWS</span></a>
+                </li>
+                <li>
+                    <a href="/categories/education"><i class="fa fa-pencil fa-2x"></i><span class="nav-text">EDUCATION</span></a>
+                </li>
+                <li>
+                    <a href="/categories/sports"><i class="fa fa-soccer-ball-o fa-2x"></i><span class="nav-text">SPORTS</span></a>
+                </li>
+                <li>
+                    <a href="/categories/kids"><i class="fa fa-child fa-2x"></i><span class="nav-text">KIDS</span></a>
+                </li>
+                <div style=" padding:0px 10px;"><hr/></div>
+                <li>
+                    <a href="/myprofile"><i class="fa fa-user-circle fa-2x"></i><span class="nav-text">MY PROFILE</span></a>
+                </li>
+                <li>
+                    <a href="/uploads"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">UPLOADS</span></a>
+                </li>
+                <li>
+                    <a href="/statistics"><i class="fa fa-bar-chart-o fa-2x"></i><span class="nav-text">STATISTICS</span></a>
+                </li>
+                <li class="has-subnav">
+                    <a href="/history"><i class="fa fa-folder-open fa-2x"></i><span class="nav-text">HISTORY</span></a>
+                </li>
         </ul>    
         <ul class="logout">
             <li>
-                <a href="./logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">Logout</span></a>
+                <a href="../logout"><i class="fa fa-power-off fa-2x"></i><span class="nav-text">LOGOUT</span></a>
             </li>
         </ul>    
     </nav>
 
 
 
+
     <div class="topnav" style="">
-        <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
-        <a class="logo" href="/">STREAMZ</a>
-        <a class="username" href="/myprofile">$username</a>        
-        <div class="search-container" style="margin-left:10%;">
-            <form method="POST" action="../search">
-            <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
-            <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
-            </form>
+            <a id="navicon" onclick="openNav()" style="width:0px;"><i class="fa fa-navicon fa-2x" style="user-select: none; padding:0px; margin:0px"></i></a>
+            <a class="logo" href="/">STREAMZ</a>
+            <a class="username" href="/myprofile">$firstname</a>        
+            <div class="search-container">
+                <form method="POST" action="../search">
+                <input type="text"  placeholder="Search.." id="searchtext" name="searchtext">
+                <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
+                </form>
+            </div>
+            &nbsp &nbsp &nbsp
+            <div style="float:right; margin-top:20px;" id="google_translate_element">
+            </div>
+            <a class="username" href="/uploadvideo"><i class="fa fa-upload fa-2x"></i></a>
         </div>
-        &nbsp &nbsp &nbsp
-        <div style="float:right; margin-top:20px;" id="google_translate_element">
-        </div>
-    </div>
+
             
 
             <div class="grid-container">
                     <div class="video-content" >
-                        <video autoplay loop width="100%"src="http://0.0.0.0:8080/videos/$videoid" type="video/mp4" controls>
+                        <video class="video" autoplay loop  src="http://0.0.0.0:8080/videos/$videoid" type="video/mp4" controls>
                                 Your browser does not support the video tag.
                         </video>
-                    <div class="likebuttons">
-                        <div>
-                            <h1 style="font-family: 'Ubuntu', sans-serif; color:white; float:left;">$videoname</h1>
+                    <div>
+                            <div style="width:100%;"><h1 style="font-family: 'Ubuntu', sans-serif; color:white; float:left;">$videoname</h1></div>
+                                                <br/><br/>
+                        <div   style="padding-right:10%;">
                             $if subscribestatus==1:
                                 <form method="POST" action="/unsubscribe">
                                     <input value="$videoid" style="display:none;" type="text" name="videoid"/>
                                     <input value="$username" style="display:none;" type="text" name="username"/>
                                     <input value="$uploader" style="display:none;" type="text" name="uploader"/>
-                                    <button style="background-color: beige;margin-top:2%" class="subscribebutton">SUBSCRIBED</button>
+                                    <button style="float:right; background-color: beige;margin-top:1%" class="button">SUBSCRIBED</button>
                                 </form>
                             $else:
                                 <form method="POST" action="/subscribe">
                                     <input value="$videoid" style="display:none;" type="text" name="videoid"/>
                                     <input value="$username" style="display:none;" type="text" name="username"/>
                                     <input value="$uploader" style="display:none;" type="text" name="uploader"/>
-                                    <button style="background-color:#e46226; margin-top:2%" class="button">SUBSCRIBE</button>
+                                    <button style="float:right; background-color:#e46226; margin-top:1%" class="button">SUBSCRIBE</button>
                                 </form>
-                            
-
-                        </div> 
-                                                <br/><br/>
-                        <div style="padding-right:10%;">
                             
                             $if likestatus==1:
                                 <form method="POST" action="/dislike">
@@ -524,41 +564,16 @@ $def with (username,videoid,videoname,uploader,videodescription,likestatus,subsc
                     </div>
                     <div class="recommendation" style="padding:0 10%;">
                         <p style="color:white; font-family: 'Montserrat', sans-serif;">RECOMMENDATIONS</p>
-                        <div class="recommended-videos">
-                            <div style="padding:2%"><img src="static/image/video1.png" width=100%>
-                            </div>
-                            <div>
-                                <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                            </div>
-                        </div>
-
-                        <div class="recommended-videos">
-                            <div style="padding:2%"><img src="static/image/video1.png" width=100%>
-                            </div>
-                                <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+                        $for i in range(len(recomresult)):
+                            <div class="recommended-videos">
+                                <div style="padding:2%"><a style="width:100%" href="/play/$recomresult[i]"><img src="http://0.0.0.0:8080/thumbnails/$recomresult[i]" width=100%></a>
                                 </div>
-                        </div>
-
-                        <div class="recommended-videos">
-                            <div style="padding:2%"><img src="static/image/video1.png" width=100%>
-                            </div>
                                 <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
+                                    <a class="aclass" href="/play/$recomresult[i]"><p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">$recomvideoname[i]</p></a>
+                                    <a class="aclass" href="/profile/$recomuploader[i]"><p style="font-family: 'Patua One', cursive; font-size: 20px">$recomuploader[i]</p></a>
+                                    <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; font-size: 15px">$recomdescription[i]</p>
                                 </div>
-                        </div>
-
-                        <div class="recommended-videos">
-                            <div style="padding:2%"><img src="static/image/video1.png" width=100%>
                             </div>
-                                <div>
-                                    <p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">3 Min Timer</p>
-                                    <p style="font-family: 'Patua One', cursive; font-size: 20px">Plays for 3 mins</p>
-                                </div>
-                        </div>
 
                                                    
 

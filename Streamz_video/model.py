@@ -62,8 +62,8 @@ def get_uploader(id):
 	params={'uploader':ul}
 	return json.dumps(params)
 
-def upload_video(name,videopath, uploader):
-	id=db.insert('video', name=name, urlpath=videopath, uploader=uploader)
+def upload_video(name,videopath,thumbnail,uploader):
+	id=db.insert('video', name=name, urlpath=videopath,thumbnail=thumbnail, uploader=uploader)
 	params={'id':id}
 	return json.dumps(params)
 
@@ -73,11 +73,18 @@ def upload_thumbnail(name,thumbnailpath):
 	return json.dumps(params)
 		
 
-def update_video_desc(id,thumbnail,name,description,category,country,age,tags):
-	if thumbnail=='':
-		db.update('video', where='id= $id',vars=locals(), name=name,description=description,category=category,country=country,age=age,tags=tags)
-	else:
-		db.update('video', where='id= $id',vars=locals(), name=name, thumbnail=thumbnail,description=description,category=category,country=country,age=age,tags=tags)
+def update_video_desc(id,name,description,category,country,age,tags):
+	age=int(age)
+	db.update('video', where='id= $id',vars=locals(), name=name,description=description,category=category,country=country,age=age,tags=tags)
+	params={'status':"updated"}
+	return json.dumps(params)
+
+def update_video_thumbnail(id,thumbnail):
+	db.update('video', where='id= $id',vars=locals(), thumbnail=thumbnail)
+	return "success"
+
+def update_video_subtitles(id,subtitles):
+	db.update('video', where='id= $id',vars=locals(), subtitles=subtitles)
 	return "success"
 
 def get_uploads(username):
@@ -114,4 +121,20 @@ def get_channel_likes_count(uploader):
 	for i in range(len(row)):
 		dislikes+=row[i][1]
 	params={'uploader':uploader,'likescount':likes,'dislikescount':dislikes}
+	return json.dumps(params)
+
+def get_agerestriction(videoid):
+	data = db.select('video', order='id')
+	authdb = sqlite3.connect('videos.db')
+	c= authdb.execute('select age from video where id=?',[videoid])
+	row = c.fetchall()
+	params={'AgeRestriction':int(row[0][0])}
+	return json.dumps(params)
+
+def get_countryrestriction(videoid):
+	data = db.select('video', order='id')
+	authdb = sqlite3.connect('videos.db')
+	c= authdb.execute('select country from video where id=?',[videoid])
+	row = c.fetchall()
+	params={'CountryRestriction':row[0][0]}
 	return json.dumps(params)
