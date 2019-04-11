@@ -12,9 +12,9 @@ font-family: 'Patua One', cursive;
     margin:0;
     outline: none !important;
 }
-a:hover{
+a:hover,a:focus{
     text-decoration: none;
-    color:#FFF;
+    color:#e46226;
 }
 body{
     background:#eee;
@@ -104,12 +104,16 @@ nav>ul>li>a{
 }
 
 .logo{
-    color: #fff;
-    font-family: 'Abel', sans-serif;
-    font-size: 40px;
-    position:absolute;
-    padding: 20px;
-}
+        float: left;
+        display: block;
+        color: #e46226;
+        text-align: center;
+        padding:5px 20px;
+        text-decoration: none;        
+        font-family: 'Abel', sans-serif;
+        font-size: 45px;
+        font-weight: 900;
+    }
 .brand-quote{
     color: #fff;
     font-family: 'Patua One', cursive;
@@ -261,17 +265,8 @@ textarea:focus, input:focus{
     <div class="bg-image">
         <div class="bw-gradient"></div>
         <div class="container">
-            <div class="logo">STREAMZ</div>
-            <div class="header">
-                <nav>
-                    <ul>
-                        <li><a href="">HOME</a></li>
-                        <li><a href="">ABOUT</a></li>
-                    </ul>
-                </nav>
-                <button type="button" class="btn " data-toggle="modal" >LOGIN</button>
-                
-            </div>
+            <div class="logo"><a class="logo" href="/">STREAMZ</a></div>
+            
             
             
 
@@ -320,7 +315,7 @@ textarea:focus, input:focus{
                                     </div>
                                 <div class="hr"></div>
                                 <div class="foot-lnk">
-                                    <a href="/"><label style="color:white;">Already Member?</a>
+                                    <a href="/"><label style="color:white; cursor: hand;">Already Member?</a>
                                 </div>
                             </form>
                                 </div>

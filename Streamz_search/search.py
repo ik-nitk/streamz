@@ -62,11 +62,12 @@ class Details:
         tags=json.loads(data)['tags']
         countries=json.loads(data)['countries']
         age=json.loads(data)['age']
+        age=int(age)
         likes=0
         dislikes=0
         subcount=0
         score=0
-        details=json.dumps({'id':ids,'uploader':uploader,'category':category,'title':title,'description':description,'tags':tags,'countries':countries,'age':age,'likes':likes,'dislikes':dislikes,'subcount':subcount,'score':score})
+        details=json.dumps({'id':int(ids),'uploader':uploader,'category':category,'title':title,'description':description,'tags':tags,'countries':countries,'age':age,'likes':likes,'dislikes':dislikes,'subcount':subcount,'score':score})
         #print details
         res = model.send_details(details)
         return res

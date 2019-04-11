@@ -27,6 +27,14 @@ def get_video(id):
 	url=row[2]
 	return open(url,"rb").read()
 
+def get_subtitle(id):
+	data = db.select('video', order='id')
+	authdb = sqlite3.connect('videos.db')
+	c= authdb.execute('select * from video where id=?',[id])
+	row = c.fetchone()
+	url=row[12]
+	return open(url,"rb").read()
+
 def get_thumbnail(id):
 	data = db.select('video', order='id')
 	authdb = sqlite3.connect('videos.db')
@@ -63,7 +71,7 @@ def get_uploader(id):
 	return json.dumps(params)
 
 def upload_video(name,videopath,thumbnail,uploader):
-	id=db.insert('video', name=name, urlpath=videopath,thumbnail=thumbnail, uploader=uploader)
+	id=db.insert('video', name=name, urlpath=videopath,thumbnail=thumbnail, uploader=uploader,likes=0,dislikes=0)
 	params={'id':id}
 	return json.dumps(params)
 
@@ -114,12 +122,13 @@ def get_channel_likes_count(uploader):
 	authdb = sqlite3.connect('videos.db')
 	c= authdb.execute('select likes,dislikes from video where uploader=?',[uploader])
 	row = c.fetchall()
+	print row
 	likes=0
 	for i in range(len(row)):
-		likes+=row[i][0]
+		likes+=int(row[i][0])
 	dislikes=0
 	for i in range(len(row)):
-		dislikes+=row[i][1]
+		dislikes+=int(row[i][1])
 	params={'uploader':uploader,'likescount':likes,'dislikescount':dislikes}
 	return json.dumps(params)
 

@@ -11,7 +11,7 @@ $def with (username,firstname,fn,ln,abt,db,eml,ph,cntry)
         margin:0;
     }
     body{
-        background-color: black;
+        background-color: rgb(22, 22, 22);
         font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -515,7 +515,16 @@ $def with (username,firstname,fn,ln,abt,db,eml,ph,cntry)
                         </tr>
                         <td><label>Country:</label></td>
                         <td style="width:100%;">
-                            $if cntry=="None":
+                            $if cntry==None:
+                                <select name="country" style="font-family: 'Patua One', cursive;font-size: 20px;background-color:#FFF;color:#000;padding:5px;margin-top:7px;text-align: center;">
+                                    <option value="None" selected>None</option>
+                                    <option value="India">India</option>
+                                    <option value="UnitedStates">US</option>
+                                    <option value="Australia">Australia</option>
+                                    <option value="China">China</option>
+                                    <option value="Germany">Germany</option>
+                                </select>
+                            $elif cntry=="None":
                                 <select name="country" style="font-family: 'Patua One', cursive;font-size: 20px;background-color:#FFF;color:#000;padding:5px;margin-top:7px;text-align: center;">
                                     <option value="None" selected>None</option>
                                     <option value="India">India</option>

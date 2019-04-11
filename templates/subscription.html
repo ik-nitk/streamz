@@ -1,5 +1,5 @@
 $def with (username,firstname, subscriptions)
-<title>::UPLOADS::</title>
+<title>::SUBSCRIPTIONS::</title>
 <style>
     /*
     font-family: 'Abel', sans-serif;
@@ -11,7 +11,7 @@ $def with (username,firstname, subscriptions)
         margin:0;
     }
     body{
-        background-color: black;
+        background-color: rgb(22, 22, 22);
         font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -466,10 +466,10 @@ $def with (username,firstname, subscriptions)
             <div class="grid-container" style="width:100%;">
                 <div class="item1" style="width:100%">
                     <center>
-                        <a  href="/profile/$subscriptions[i]"><img class=".img-circle" style="border-radius: 70%; height:250px; width:200px;" src="http://0.0.0.0:8080/profilepic/$subscriptions[i]" width=100%></a>                               
+                        <a  href="/profile/$subscriptions[i]"><img class=".img-circle" style="border-radius: 70%; height:200px; width:200px;" src="http://0.0.0.0:8080/profilepic/$subscriptions[i]" width=100%></a>                               
                 </center>
                 </div>
-                <div class="item2" style="width:100%; padding-top:20%;">
+                <div class="item2" style="width:100%; padding-top:10%;">
                     <a class="aclass" href="/profile/$subscriptions[i]"><p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">$subscriptions[i]</p></a>                   
                 
                     <form method="POST" action="/unsubscribe">

@@ -39,8 +39,8 @@ def get_coverpic(username):
     p=requests.post('http://0.0.0.0:9090/getcoverpic', data=json.dumps(params))
     return p
      
-def update_profile(firstname,lastname,username,about,phone,email,category,country,dob,x,y):
-    paramspic = {'profilepic_file': x.myprofilepic.file.read(),'profilepic_name':x.myprofilepic.filename,'coverpic_file': y.mycoverpic.file.read(),'coverpic_name':y.mycoverpic.filename,'firstname':firstname,'lastname':lastname,'username':username,'phone':phone,'email':email,'category':category,'country':country,'dob':dob,'about':about}
+def update_profile(firstname,lastname,username,about,phone,email,country,dob,x,y):
+    paramspic = {'profilepic_file': x.myprofilepic.file.read(),'profilepic_name':x.myprofilepic.filename,'coverpic_file': y.mycoverpic.file.read(),'coverpic_name':y.mycoverpic.filename,'firstname':firstname,'lastname':lastname,'username':username,'phone':phone,'email':email,'country':country,'dob':dob,'about':about}
     p = requests.post('http://0.0.0.0:9090/updateprofile', files=paramspic)
     return p
     #return json.dumps(params)
@@ -101,7 +101,7 @@ def upload_video(x,th,uploader):
 
 def upload_video_info(id,name,description,tags,countries,category,uploader,age,th,st):
 
-    params = {'id':id,'video_name':name,'description':description,'tags':tags,'category':category,'countries':json.dumps(countries),'uploader':uploader,'age':age} 
+    params = {'id':id,'video_name':name,'description':description,'tags':tags,'category':category,'countries':json.dumps(countries),'uploader':uploader,'age':int(age)} 
     p=requests.post('http://0.0.0.0:7070/details', data=json.dumps(params))
 
     paramsth = {'thumbnail_file': th.mythumbnail.file.read(),'thumbnail_name':th.mythumbnail.filename,'subtitles_file': st.mysubtitles.file.read(),'subtitles_name':st.mysubtitles.filename,'id':id,'video_name':name,'description':description,'tags':tags,'category':category,'countries':json.dumps(countries),'age':age}
@@ -121,6 +121,12 @@ def update_video(id,name,description,tags,countries,category,uploader,age,th,st)
 def get_video(id):
     params = {'vid': id} 
     p=requests.post('http://0.0.0.0:5050/getvideo', data=json.dumps(params))
+    return p
+    #return json.dumps(params)
+
+def get_subtitle(id):
+    params = {'vid': id} 
+    p=requests.post('http://0.0.0.0:5050/getsubtitle', data=json.dumps(params))
     return p
     #return json.dumps(params)
 

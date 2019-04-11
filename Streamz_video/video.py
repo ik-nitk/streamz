@@ -7,6 +7,7 @@ urls = ('/getvideodesc', 'GetVideoDesc',
         '/upload', 'UploadVideo',
 	'/updatevideo', 'UpdateVideo',
         '/getvideo', 'GetVideo',
+        '/getsubtitle', 'GetSubtitle',
         '/getthumbnail', 'GetThumbnail',
         '/getvideoname', 'GetVideoName',
         '/getuploader', 'GetUploader',
@@ -64,6 +65,14 @@ class GetVideo:
                 data=web.data()
                 id=json.loads(data)['vid']
                 s=model.get_video(id)
+                return s
+
+class GetSubtitle:
+    
+        def POST(self):
+                data=web.data()
+                id=json.loads(data)['vid']
+                s=model.get_subtitle(id)
                 return s
 
 class GetThumbnail:

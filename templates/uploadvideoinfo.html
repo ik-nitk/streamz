@@ -11,7 +11,7 @@ $def with (username,firstname,id,name,description,category,countries,age)
         margin:0;
     }
     body{
-        background-color: black;
+        background-color: rgb(22, 22, 22);
     }
 
     .fa-2x{
@@ -511,13 +511,14 @@ width:100%;
                                                         <p>RESTRICTION</p>
                                                         <table style="color:#FFF;">     
                                                         <tr style="padding:10%; margin:10%;">
-                                                                <td><label>Countries:</label></td>
+                                                                <td><label>Countries:</label><br/></td>
                                                                 <td style="width:100%;"><br/><input  type="checkbox" value="India" name="India"/>India<br/>
-                                                                    <input type="checkbox" value="None" name="None" checked/>None<br/></td>
+                                                                    
                                                                     <input type="checkbox" value="United States" name="UnitedStates"/>US<br/>
                                                                     <input type="checkbox" value="Australia" name="Australia"/>Australia<br/>
                                                                     <input type="checkbox" value="China" name="China"/>China<br/>
                                                                     <input type="checkbox" value="Germany" name="Germany"/>Germany<br/></td>
+                                                                    <input style="display:none;" type="checkbox" value="None" name="None" checked/><span style="display:none;">None</span><br/>
                                                             </tr>
                                                             <tr style="padding:10%; margin:10%;">
                                                                     <td><label>Age:</label></td>

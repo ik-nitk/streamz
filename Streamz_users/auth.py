@@ -238,18 +238,6 @@ class Profile:
 
 
 class UpdateProfile:
-
-        def GET(self):
-                fn="aulick3"
-                ln="sah3"
-                ph="1234567890"
-                eml="asdfghjkl@gsdd.com"
-                un="lakshmi"
-                dob="2017-07-07"
-                country="India1"
-                category="Preeti"
-                p=model.update_user_details(fn,ln,eml,un)
-                return p
     
         def POST(self):
                 web.header('Access-Control-Allow-Origin','*')
@@ -265,7 +253,6 @@ class UpdateProfile:
                 un=data['username']
                 db=data['dob']
                 cntry=data['country']
-                cat=data['category']
 
                 if profilepicname!="":
                         fout = open('static/profilepic' +'/'+ profilepicname,'w')
@@ -275,7 +262,7 @@ class UpdateProfile:
                         fout = open('static/coverpic' +'/'+ coverpicname,'w')
                         fout.write(data['coverpic_file']) 
                         fout.close()
-                s=model.update_user('static/profilepic/' + profilepicname,'static/coverpic/' + coverpicname,fn,ln,ph,eml,un,db,cntry,cat,abt)
+                s=model.update_user('static/profilepic/' + profilepicname,'static/coverpic/' + coverpicname,fn,ln,ph,eml,un,db,cntry,abt)
 
 		return s
 

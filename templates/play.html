@@ -11,7 +11,7 @@ $def with (username,firstname,videoid,videoname,uploader,videodescription,likest
         margin:0;
     }
     body{
-        background-color: black;
+        background-color: rgb(22, 22, 22);
         font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -488,10 +488,24 @@ $def with (username,firstname,videoid,videoname,uploader,videodescription,likest
             
 
             <div class="grid-container">
+
                     <div class="video-content" >
-                        <video class="video" autoplay loop  src="http://0.0.0.0:8080/videos/$videoid" type="video/mp4" controls>
-                                Your browser does not support the video tag.
+
+                        <video controls ="controls" class="video" id="myVideo">
+                            <source autoplay loop src="http://0.0.0.0:8080/videos/$videoid" type="video/mp4">
+                            <track src="http://0.0.0.0:8080/subtitles/$videoid" kind="subtitles" srclang="en" label="English">
+                            <track src="http://0.0.0.0:8080/subtitles/$videoid" label="English subtitles"  kind="subtitles" srclang="en" default>  	
+                                
                         </video>
+
+                        <div id="video_controls_bar" style="font-family: 'Patua One', cursive;font-size: 20px;background-color:#000;color:#FFF;padding:5px;margin-top:7px;text-align: center;" class="video">
+                            <label>SPEED:</label>
+                            <select id="d1" onchange="myfunc(this.value)" style="background-color:#000;" >
+                               <option value=".5" >.5X</option>
+                               <option value="1"  selected="selected">1X</option>
+                               <option value="2" >2X</option>
+                            </select>
+                          </div>
                     <div>
                             <div style="width:100%;"><h1 style="font-family: 'Ubuntu', sans-serif; color:white; float:left;">$videoname</h1></div>
                                                 <br/><br/>
@@ -628,5 +642,26 @@ function googleTranslateElementInit() {
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                 
+<script>
+var vid = document.getElementById("myVideo");
+	
 
+function myfunc(v) {
+  switch(v) {
+    case ".5":
+      vid.playbackRate=0.5;
+      break;
+    case "1":
+      vid.playbackRate=1.0;      
+      break;    
+    case "2":
+      vid.playbackRate=2.0;      
+      break; 
+      
+    }
+  }
+
+
+
+</script>
 

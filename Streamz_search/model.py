@@ -50,6 +50,7 @@ def send_search(keyword,age,country):
                     {
                     "should" : [
                     { "match" : {"category" : txt} },
+                    { "match" : {"description" : txt} },
                     {"match":{ "uploader" : txt }},
                     {"match": {"tags": txt}},
                     {"match": {"title":{"query":txt,"analyzer": "english"}}},
@@ -100,75 +101,41 @@ def update_likes(ids,likes,dislikes,score):
 
 
 def trending(age,country):
-  video_id=[]
-  channel_name=[]
+  age=int(age)
+  country=str(country)
+  videos=[]
   es=Elasticsearch([{'host':'localhost','port':9200}])
-
   res= es.search(index='streamz',body={
-  
-    "query": {
+
+  "query": {
     
     "bool": {
-              "must":[
-
+                 "must":[
+                    
                     { "range": {
                         "age": {
                 "lt": age
             }
         }
-        },
-        {"bool":
-        {"must_not":[
-        {"match": {"countries":country}}]}}
-        ]
+        }
+        ],
+        "must_not":[
+        {"match": {"countries":country}}]
         }
         },
+
         "sort" : [
       {"score" : {"order" : "desc", "mode" : "avg"}},]
                     
-                    }
-                    )
+        }
+        )
 
 
   for hit in res['hits']['hits']:
-    video_id.append(hit['_source']['id'])
-  
-  res1= es.search(index='streamz',body={
-  
-    "query": {
-    
-    "bool": {
-                    "must":[
-
-                    {"match": {"countries":country}},
-                    
-                    { "range": {
-                        "age": {
-                "lte": age
-            }
-        }
-        }],
-        }
-        },
-    
-    
-                    "sort" : [
-      {"subcount" : {"order" : "desc", "mode" : "avg"}},]
-                    }
-                    
-                    
-
-    )
-  for hit1 in res1['hits']['hits']:
-    channel_name.append(hit1['_source']['uploader'])
-
-  video_ids={'trend_video': video_id,'trend_channel':channel_name}
-  return json.dumps(video_ids)
-
-
-
-
-
+    videos.append(hit['_source']['id'])
+    print hit['_source']['id']
+  ids = {'trend_video': videos}
+  return json.dumps(ids)
 
 
 def sort_category(category,age,country):

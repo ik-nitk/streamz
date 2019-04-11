@@ -13,9 +13,9 @@ font-family: 'Patua One', cursive;
     margin:0;
     outline: none !important;
 }
-a:hover{
+a:hover,a:focus{
     text-decoration: none;
-    color:#FFF;
+    color:#e46226;
 }
 body{
     background:#eee;
@@ -105,27 +105,32 @@ nav>ul>li>a{
 }
 
 .logo{
-    color: #fff;
-    font-family: 'Abel', sans-serif;
-    font-size: 40px;
-    position:absolute;
-    padding: 20px;
-}
+        float: left;
+        display: block;
+        color: #e46226;
+        text-align: center;
+        padding:5px 20px;
+        text-decoration: none;        
+        font-family: 'Abel', sans-serif;
+        font-size: 45px;
+        font-weight: 900;
+    }
 .brand-quote{
     color: #fff;
     font-family: 'Patua One', cursive;
     font-size: 50px;
     padding-left:20px;
     position: relative;
-    top:100px;
 }
 
 .para{
-    width: 50%;
+    width: 100%;
     font-family: 'Montserrat', sans-serif;
     color:#fff;
+    font-size: 30px;
     top: 1200px;
     padding-left:20px;
+    text-align: justify;
 }
 
 
@@ -258,20 +263,97 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3c5bd', end
 textarea:focus, input:focus{
     outline: none;
 }
+
 </style>
+<style>
+.container1 {
+  position: relative;
+  font-family: Arial;
+}
+
+.text-block {
+  position: absolute;
+  top: 3%;
+  right: 60%;
+  background-color:rgba(41, 39, 39, 0.6);;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: justify;
+}
+
+.text-block1 {
+  position: absolute;
+  top: 1%;
+  left:10%;
+  right: 10%;
+  font-size: 30px;
+  text-align: justify;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+</style>
+
+<style>
+@media screen and (max-width: 550px)
+{
+    .brand-quote{
+    color: #fff;
+    font-family: 'Patua One', cursive;
+    font-size: 20px;
+    padding-left:20px;
+    position: relative;
+}
+.para{
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    color:#fff;
+    font-size: 12px;
+    top: 1200px;
+    padding-left:20px;
+    text-align: justify;
+}
+.text-block {
+  position: absolute;
+  top: 3%;
+  right: 60%;
+  background-color:rgba(41, 39, 39, 0.6);
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: justify;
+}
+.text-block1 {
+  position: absolute;
+  top: 1%;
+  bottom:1%;
+  left:1%;
+  right: 1%;
+  background-color:rgba(41, 39, 39, 0.6);
+  font-size: 28px;
+  text-align: justify;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+}
+
+</style>
+
+
 </head>
 <body>
 
 <div class="bg-image">
         <div class="bw-gradient"></div>
         <div class="container">
-            <div class="logo">STREAMZ</div>
+            <div class="logo"><a class="logo" href="/">STREAMZ</a></div>
             <div class="header">
                 <nav>
-                    <ul>
-                        <li><a href="">HOME</a></li>
-                        <li><a href="">ABOUT</a></li>
-                    </ul>
+                    
                 
                 <button type="button" class="btn" data-toggle="modal" data-target="#myModal">LOGIN</button>
             </nav>
@@ -279,18 +361,17 @@ textarea:focus, input:focus{
             
             <div class="flex-container">
                     <div>
-                    <h1 class="brand-quote" style="color:#e46226">BroadCast Yourself</h1>
-                    <br/><br/><br/><br/><br/><br/>
-                   <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-                 
-        
-                    </div>
-                    <div>
-                            <h1 class="brand-quote" style="color:#e46226">BroadCast Yourself</h1>
-                    <br/><br/><br/><br/><br/><br/>
-                   <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-                 
-                    </div>
+                    
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <div class="text-block1" style="margin-top:150px;">
+                    <center>
+                    <p>Our mission is to give everyone a voice and show them the world.</p><br/>   
+                    <p >Everyone deserves to have a voice, and that the world is a better place when we listen, share and build community through our stories.</p>              
+                </center>
+
+                </div>
+            </div>
+                    
             </div>
 
 
@@ -334,7 +415,7 @@ textarea:focus, input:focus{
                                         <div class="hr"></div>
                                         
                                         <div class="foot-lnk">
-                                            <a href="/register"><label style="color:white;">New User? Register</a>
+                                            <a href="/register" ><label style="color:white;cursor: hand;">New User? Register</a>
                                         </div>
                                     </div>
                                 </form>
@@ -353,3 +434,39 @@ textarea:focus, input:focus{
       </div>
       
     </div>
+<div style="height: 800px;">
+</div>
+<div style="background-color: rgba(228,98,38, 0.95); padding:6%;">
+<center><p style="font-family: 'Abel', sans-serif; font-size: 40px;"  > Our values are based on four essential freedoms that define who we are.</p></center>
+</div>
+<div class="container1" style="max-height:700px;">
+    <img src="/static/image/expression.jpeg" style="width:100%; ">
+    <div class="text-block" >
+        <h4 class="brand-quote" style="color: #e46226;">Freedom Of Expression</h4>
+        <p class="para">We believe people should be able to speak freely, share opinions, foster open dialogue, and that creative freedom leads to new voices, formats and possibilities.</p>
+    </div>
+</div>
+
+<div class="container1" style="max-height:700px;">
+    <img src="/static/image/information.jpg" style="width:100%;">
+    <div class="text-block">
+        <h4 class="brand-quote" style="color: #e46226;">Freedom of information</h4>
+        <p class="para">We believe everyone should have easy, open access to information and that video is a powerful force for education, building understanding, and documenting world events, big and small.</p>
+    </div>
+</div>
+
+<div class="container1" style="max-height:700px;">
+        <img src="/static/image/opportunity.jpg" style="width:100%;">
+        <div class="text-block">
+            <h4 class="brand-quote" style="color: #e46226;">Freedom of Opportunity</h4>
+            <p class="para">We believe everyone should have a chance to be discovered, build a business and succeed on their own terms, and that people—not gatekeepers—decide what’s popular.</p>
+        </div>
+    </div>
+    <div class="container1" style="max-height:700px;">
+            <img src="/static/image/belong.jpg" style="width:100%;max-height:700px; background-size: contain;">
+            <div class="text-block">
+                <h4 class="brand-quote" style="color: #e46226;">Freedom to Belong</h4>
+                <p class="para">We believe everyone should be able to find communities of support, break down barriers, transcend borders and come together around shared interests and passions.</p>
+            </div>
+        </div>
+    

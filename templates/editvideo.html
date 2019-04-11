@@ -12,7 +12,7 @@ $def with (username,firstname,id,name,description,category,countries,age,tags)
         margin:0;
     }
     body{
-        background-color: black;
+        background-color:  rgb(22, 22, 22);
     }
 
     .fa-2x{
@@ -478,7 +478,7 @@ width:100%;
                                 <tr style="padding:10%;">
                                     <td><label>Category:</label></td>
                                     <td style="width:100%;">
-                                    $if category=="None":
+                                    $if category=="None1":
                                         <select name="category" style="font-family: 'Patua One', cursive;font-size: 20px;background-color:#FFF;color:#000;padding:5px;margin-top:7px;text-align: center;">
                                             <option value="None" selected>None</option>
                                             <option value="Entertainment">Entertainment</option>
@@ -570,9 +570,9 @@ width:100%;
                                     $else:
                                         <input type="checkbox" value="Germany" name="Germany"/>Germany<br/>
                                     $if '' in countries:
-                                        <input type="checkbox" checked value="None1" name="None"/>None<br/></td>
+                                        <input type="checkbox" style="display:none;" checked value="None1" name="None"/><span style="display:none;">None</span><br/></td>
                                     $else:
-                                        <input type="checkbox" checked value="None1" name="None"/>None<br/>
+                                        <input type="checkbox" style="display:none;" checked value="None1" name="None"/><span style="display:none;">None</span><br/>
                                 </td>
                             </tr>
                             <tr style="padding:10%;">

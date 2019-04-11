@@ -26,6 +26,7 @@ urls = (
 	'/uploads', 'Uploads',
 	'/statistics', 'Statistics',
 	'/videos/(\d+)','Videos',
+	'/subtitles/(\d+)','Subtitles',
 	'/thumbnails/(\d+)','Thumbnails', 
 	'/profilepic/(\d+)','ProfilePic',
 	'/coverpic/(\d+)','CoverPic',
@@ -43,6 +44,7 @@ urls = (
 	'/profilepic/(.+)','ProfilePic',
 	'/coverpic/(.+)','CoverPic',
 	'/categories/(.+)','Categories',
+	
 )
 
 
@@ -59,7 +61,9 @@ else:
 
 class Categories:
 
-	def GET(self,category):	
+	def GET(self,category):
+			if session.user=='username':
+				raise web.seeother('/')
 			s=model.get_category_videoids(category,model.calculate_Age(model.get_dob(session.user)['dob']),model.get_country(session.user)['country'])
 			t=s['id']
 			videonames=[]
@@ -76,14 +80,18 @@ class Categories:
 class Profile:
 
 	def GET(self,profileusername):
+		if session.user=='username':
+			raise web.seeother('/')
 		if session.user==profileusername:
 			raise web.seeother('/myprofile')
 		u=model.get_user_stats(profileusername)
-		return render.profile(session.user,model.get_firstname(session.user)['firstname'],profileusername,u['joined'],u['likes'],u['dislikes'],u['subscribers'])
+		return render.profile(model.get_firstname(session.user)['firstname'],profileusername,model.get_firstname(profileusername)['firstname'],u['about'],u['joined'],u['likes'],u['dislikes'],u['subscribers'])
 
 class ProfileUploads:
 
 	def GET(self,profileusername):
+		if session.user=='username':
+			raise web.seeother('/')
 		if session.user==profileusername:
 			raise web.seeother('/uploads')
 		s=model.get_uploads(profileusername)
@@ -97,7 +105,7 @@ class ProfileUploads:
 		descriptions=[]
 		for i in range(len(t)):
 			descriptions.append(model.get_description(t[i])['description'])
-		return render.profileuploads(session.user,profileusername,t,videonames,uploaders,model.get_firstname(profileusername)['firstname'],descriptions)
+		return render.profileuploads(model.get_firstname(session.user)['firstname'],profileusername,t,videonames,uploaders,model.get_firstname(profileusername)['firstname'],descriptions)
 
 
 class Subscribe:
@@ -168,7 +176,7 @@ class Like:
 			lks=t['likes']
 			dlks=t['dislikes']
 			model.update_likestatus(i.videoid,lks,dlks)
-			#model.update_channel_likes_count(i.uploader)
+			model.update_channel_likes_count(i.uploader)
 			raise web.seeother('/play/'+i.videoid)
 
 class Dislike:
@@ -180,7 +188,8 @@ class Dislike:
 			lks=t['likes']
 			dlks=t['dislikes']
 			model.update_likestatus(i.videoid,lks,dlks)
-			#model.update_channel_likes_count(i.uploader)
+			s=model.update_channel_likes_count(i.uploader)
+			return s
 			raise web.seeother('/play/'+i.videoid)
 
 class Nonelike:
@@ -192,7 +201,7 @@ class Nonelike:
 			lks=t['likes']
 			dlks=t['dislikes']
 			model.update_likestatus(i.videoid,lks,dlks)
-			#model.update_channel_likes_count(i.uploader)
+			model.update_channel_likes_count(i.uploader)
 			raise web.seeother('/play/'+i.videoid)
 
 
@@ -218,8 +227,9 @@ class UpdateVideo:
 
 		t=str(i.tags)
 		tg=json.dumps(t.split(","))
-		p=model.update_video(i.id,i.name,i.description,tg,countries,i.category,session.user,i.age,th,st)
-		raise web.seeother('/play/'+i.id)
+		p=model.update_video(i.id,i.name,i.description,tg,countries,i.category,session.user,int(i.age),th,st)
+		#raise web.seeother('/play/'+i.id)
+		raise web.seeother('/uploads')
 
 class EditVideo:
 
@@ -246,11 +256,11 @@ class EditVideo:
 
 class UpdateProfile:	
 	def GET(self):
-		
+		if session.user=='username':
+			raise web.seeother('/')
 		s=model.get_profile(session.user)
 		fn=s['firstname']
 		ln=s['lastname']
-		cat=s['category']
 		db=s['dob']
 		abt=s['about']
 		eml=s['email']
@@ -263,8 +273,8 @@ class UpdateProfile:
 		i = web.input()
 		x = web.input(myprofilepic={})
 		y = web.input(mycoverpic={})
-		s = model.update_profile(i.firstname,i.lastname,i.username,i.about,i.phone,i.email,i.category,i.country,i.dob,x,y)
-		return s
+		s = model.update_profile(i.firstname,i.lastname,i.username,i.about,i.phone,i.email,i.country,i.dob,x,y)
+		raise web.seeother('/myprofile')
 
 class Index:
 
@@ -292,8 +302,11 @@ class Index:
 			s= model.check_user(un,pwd)			
 			if s['status']== "LoggedIn":
 				session.loggedin = True
-        		session.user = s['username']
-        	raise web.seeother('/home')
+				session.user = s['username']
+				raise web.seeother('/home')
+			else:
+				raise web.seeother('/')
+        	
 			
 
 class Register:
@@ -357,7 +370,7 @@ class Homepage:
 		else:
 			x= model.get_trending(int(model.calculate_Age(model.get_dob(session.user)['dob'])),model.get_country(session.user)['country'])
 			t= x['trend_video']
-			
+
 			videonames=[]
 			for i in range(len(t)):
 				videonames.append(model.get_videoname(t[i])['name'])
@@ -390,6 +403,14 @@ class Play:
 					cmts=model.get_commentlist(video_id)
 					x=model.get_recommendation(int(video_id),int(model.calculate_Age(model.get_dob(session.user)['dob'])),model.get_country(session.user)['country'])
 					t= x['recom_id']
+					s=[]
+					for i in range(len(t)):
+						if t[i]==video_id:
+							r=t.pop(i)
+							break
+					
+					if t==None:
+						t=[]
 					if range(len(t))>7:
 						t=t[0:7]
 					videonames=[]
@@ -409,8 +430,11 @@ class Play:
 
 
 class Uploadvideo:
-	def GET(self):	
-		return render.uploadvideo()
+	def GET(self):
+		if session.user=='username':
+				raise web.seeother('/')
+		else:	
+			return render.uploadvideo(model.get_firstname(session.user)['firstname'])
 
 	def POST(self):
 		
@@ -423,6 +447,8 @@ class Uploadvideo:
 class UploadVideoInfo:
 
 	def GET(self,video_id):
+		if session.user=='username':
+			raise web.seeother('/')
 		id=int(video_id)
 		s=model.get_videodesc(id)
 		#if s['id']==session.user:
@@ -462,7 +488,7 @@ class UploadVideoInfo:
 			tg=json.dumps(t.split(","))
 		model.upload_video_info(i.id,i.name,i.description,tg,countries,i.category,session.user,i.age,th,st)
 
-		raise web.seeother('/myprofile')
+		raise web.seeother('/uploads')
 
 
 	
@@ -471,6 +497,12 @@ class Videos:
     def GET(self,video_id):
 		id=int(video_id)
 		s=model.get_video(id)		
+		return s
+
+class Subtitles:
+    def GET(self,video_id):
+		id=int(video_id)
+		s=model.get_subtitle(id)		
 		return s
 
 class Thumbnails:
@@ -489,6 +521,8 @@ class Logout:
 
 class MyProfile:
 	def GET(self):
+		if session.user=='username':
+			raise web.seeother('/')
 		u=model.get_user_stats(session.user)
 		s=model.get_profile(session.user)
 		return render.myprofile(session.user,model.get_firstname(session.user)['firstname'],s['firstname'],s['lastname'],s['dob'],s['about'],s['email'],s['phone'],s['country'],u['joined'],u['likes'],u['dislikes'],u['subscribers'])
@@ -497,6 +531,8 @@ class MyProfile:
 class Uploads:
 
 	def GET(self):
+		if session.user=='username':
+			raise web.seeother('/')
 		s=model.get_uploads(session.user)
 		t=s['videouploads']
  		videonames=[]
@@ -514,6 +550,8 @@ class Uploads:
 class Statistics:
 
 	def GET(self):
+		if session.user=='username':
+			raise web.seeother('/')
 		s=model.get_uploads(session.user)
 		t=s['videouploads']
  		videonames=[]
@@ -539,6 +577,8 @@ class Statistics:
 
 class History:
 	def GET(self):
+		if session.user=='username':
+			raise web.seeother('/')
 		t=model.get_history(session.user)['videoids']
 		videonames=[]
 		for i in range(len(t)):
@@ -551,24 +591,7 @@ class History:
 			descriptions.append(model.get_description(t[i])['description'])
 		return render.history(session.user,model.get_firstname(session.user)['firstname'],t,videonames,uploaders,descriptions)
 
-class Demo:
-	def GET(self,video_id):
-		
-		id=int(video_id)
-		s=model.get_videodesc(id)
-		#if s['id']==session.user:
-		id1=s['id']
-		name=s['name']
-		uploader=s['uploader']
-		description=s['description']
-		category=s['category']
-		if s['countries']!=None:
-			countries=ast.literal_eval(s['countries'])
-		else:
-			countries=None
-		age=s['age']		
-		tags=ast.literal_eval(s['tags'])
-		return render.demo(session.user,int(id1),name,description,category,countries,int(age),','.join(tags))
+
 
 """----------------------------------------------------------------------------------------------------------------------------------------"""
 

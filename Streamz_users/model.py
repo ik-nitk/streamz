@@ -91,11 +91,11 @@ def check_user(username,password):
     c= authdb.execute('select * from user where username=? and pwd=?',(username,password))
     row = c.fetchone()
     if row == None:
-		logged={"loggedin":"false"}
-		return json.dumps(loggedin) 
+		params={'status':'LoggedIn','username':"username"}
+		return json.dumps(params) 
     else: 
-			params={'status':'LoggedIn','username':username}
-			return json.dumps(params)
+		params={'status':'LoggedIn','username':username}
+		return json.dumps(params)
 	#error={"loggedin":"true","username":username} 
 
 def get_user(username):
@@ -110,15 +110,15 @@ def get_user(username):
 	dob=row[7]
 	coun=row[8]
 	cat=row[9]
-	subs=row[10]
-	lik=row[11]
-	dlik=row[12]
-	about=row[14]
+	subs=row[9]
+	lik=row[10]
+	dlik=row[11]
+	about=row[13]
 	param={'firstname':fn, 'lastname':ln,'email':eml,'username':un,'phone':ph,'dob':dob,'country':coun,'category':cat,'subscribers':subs,'likes':lik,'dislikes':dlik,'about':about}	
 	return json.dumps(param)
 	
-def update_user(profilepic,coverpic,firstname,lastname,phone,email,username,dob,country,category,about):
-	db.update('user', where='username= $username',vars=locals(), firstname=firstname, lastname=lastname,phone=phone,email=email, dob=dob,country=country,category=category,profilepic=profilepic,coverpic=coverpic,about=about)
+def update_user(profilepic,coverpic,firstname,lastname,phone,email,username,dob,country,about):
+	db.update('user', where='username= $username',vars=locals(), firstname=firstname, lastname=lastname,phone=phone,email=email, dob=dob,country=country,profilepic=profilepic,coverpic=coverpic,about=about)
 	if profilepic!='static/profilepic/': 
 		db.update('user',where='username= $username',vars=locals(), profilepic=profilepic)
 	if coverpic!='static/coverpic/': 
@@ -161,7 +161,7 @@ def get_profilepic(username):
 	authdb = sqlite3.connect('streamz.db')
 	c= authdb.execute('select * from user where username=?',[username])
 	row = c.fetchone()
-	url=row[15]
+	url=row[14]
 	if url=='static/profilepic/':
 		url='static/profilepic/default-profile.png'
 	return open(url,"rb").read()
@@ -171,7 +171,7 @@ def get_coverpic(username):
 	authdb = sqlite3.connect('streamz.db')
 	c= authdb.execute('select * from user where username=?',[username])
 	row = c.fetchone()
-	url=row[16]
+	url=row[15]
 	if url=='static/coverpic/':
 		url='static/coverpic/default-background-cover.jpg'
 	return open(url,"rb").read()
@@ -237,9 +237,9 @@ def update_channel_likescount_count(uploader,likescount,dislikescount):
 
 def get_user_stats(username):
 	authdb = sqlite3.connect('streamz.db')
-	c= authdb.execute('select joined,likes,dislikes,subscribers from user where username=?',[username])
+	c= authdb.execute('select joined,likes,dislikes,subscribers,about from user where username=?',[username])
 	row = c.fetchall()
-	params={'joined':row[0][0],'likes':row[0][1],'dislikes':row[0][2],'subscribers':row[0][3]}
+	params={'joined':row[0][0],'likes':row[0][1],'dislikes':row[0][2],'subscribers':row[0][3],'about':row[0][4]}
 	return json.dumps(params)
 
 def add_history(username,videoid):
@@ -249,7 +249,7 @@ def add_history(username,videoid):
 
 def get_history(username):
 	authdb = sqlite3.connect('streamz.db')
-	c= authdb.execute('select videoid from history where username=?',[username])
+	c= authdb.execute('select videoid from history where username=? ORDER BY hid DESC',[username])
 	row = c.fetchall()
 	videoids=[]
 	for i in range(len(row)):
