@@ -1,4 +1,4 @@
-$def with (username,firstname,videoid,videoname,uploader,videodescription,likestatus,subscribestatus,commentid,commentusername,commentlist,recomresult,recomvideoname,recomuploader,recomdescription)
+$def with (username,firstname,videoid,videoname,uploader,videodescription,views,likes,dislikes,likestatus,subscribestatus,commentid,commentusername,commentlist,recomresult,recomvideoname,recomuploader,recomdescription,recomviews,recomlikes,recomdislikes)
 <title>::VIDEO::</title>
 <style>
    /*
@@ -479,7 +479,7 @@ $def with (username,firstname,videoid,videoname,uploader,videodescription,likest
                 <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
                 </form>
             </div>
-            &nbsp &nbsp &nbsp
+            &nbsp; &nbsp; &nbsp; &nbsp;
             <div style="float:right; margin-top:20px;" id="google_translate_element">
             </div>
             <a class="username" href="/uploadvideo"><i class="fa fa-upload fa-2x"></i></a>
@@ -515,7 +515,7 @@ $def with (username,firstname,videoid,videoname,uploader,videodescription,likest
                                     <input value="$videoid" style="display:none;" type="text" name="videoid"/>
                                     <input value="$username" style="display:none;" type="text" name="username"/>
                                     <input value="$uploader" style="display:none;" type="text" name="uploader"/>
-                                    <button style="float:right; background-color: beige;margin-top:1%" class="button">SUBSCRIBED</button>
+                                    <button style="float:right; background-color: #CCC;margin-top:1%" class="button">SUBSCRIBED</button>
                                 </form>
                             $else:
                                 <form method="POST" action="/subscribe">
@@ -568,24 +568,34 @@ $def with (username,firstname,videoid,videoname,uploader,videodescription,likest
                             
                             
 
-                        </div><br/><br/>
-                    </div>    
-                        <div><hr/></div>
-                        <h4 style="color:white; font-family: 'Montserrat', sans-serif; font-weight: bold;">DESCRIPTION</h4>
+                        </div><br/>
 
+                    </div>
+                    <span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; font-size: 22px;padding:0px;line-height: 1;"> $views Views<i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i>$likes Likes<i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i>$dislikes Dislikes</span>   
+                        
+                    <div><hr/></div>
+
+                        
+                        <div  style="width:70px;float:left; padding:1%; ">
+                            <img class=".img-circle" style="border-radius: 70%; height:50px; width:50px;" src="http://0.0.0.0:8080/profilepic/$uploader" width=100%>                               
+                        </div>
+                        <div style="width:100%-70px;float:left;padding-top:1%;">
+                            <p style="font-family: 'Patua One', cursive;font-size: 20px; color:#FFF; font-weight: bold;line-height: 0.8;">$uploader</p>
+                                                                                                                         
+                        </div><br/><br/>
                         <p style="font-family: 'Karla', sans-serif; font-weight: 100; color:white; font-size: 22px;">$videodescription</p>
                         <hr/>
                     </div>
                     <div class="recommendation" style="padding:0 10%;">
-                        <p style="color:white; font-family: 'Montserrat', sans-serif;">RECOMMENDATIONS</p>
+                            <p style="color:white; font-size:27px; font-family: 'Montserrat', sans-serif;">RECOMMENDATIONS</p> 
                         $for i in range(len(recomresult)):
                             <div class="recommended-videos">
                                 <div style="padding:2%"><a style="width:100%" href="/play/$recomresult[i]"><img src="http://0.0.0.0:8080/thumbnails/$recomresult[i]" width=100%></a>
                                 </div>
                                 <div>
-                                    <a class="aclass" href="/play/$recomresult[i]"><p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">$recomvideoname[i]</p></a>
-                                    <a class="aclass" href="/profile/$recomuploader[i]"><p style="font-family: 'Patua One', cursive; font-size: 20px">$recomuploader[i]</p></a>
-                                    <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; font-size: 15px">$recomdescription[i]</p>
+                                    <a href="/play/$recomresult[i]"><p style="font-family:Roboto, Arial, sans-serif; color:#FFF; padding:0px; font-size: 25px; font-weight: bold; line-height: 1; ">$recomvideoname[i]</p></a>
+                                    <p style="font-family:Roboto, Arial, sans-serif; padding:0px; color:#cccccc; font-size: 15px;line-height: 1;"><a href="/profile/$recomuploader[i]" style="font-weight: bold; color:#CCC;">$recomuploader[i]</a> <span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; font-size: 12px;padding:0px;line-height: 1;"><i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i> $recomviews[i] Views<i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i>$recomlikes[i] Likes<i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i>$recomdislikes[i] Dislikes</span></p>
+                                    <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; padding:0px; font-size: 15px;line-height: 1;">$recomdescription[i]</p>
                                 </div>
                             </div>
 

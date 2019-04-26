@@ -1,288 +1,277 @@
-$def with (username,firstname,result,videoname,uploader,category,description)
+$def with (username,firstname,result,videoname,uploader,category,description,views,likes,dislikes)
 <title >::$category.upper()::</title>
 <style>
-        /*
-        font-family: 'Abel', sans-serif;
-        font-family: 'Montserrat', sans-serif;
-        font-family: 'Patua One', cursive;
-        */
-        *{
-            padding:0;
-            margin:0;
-        }
-        body{
-            background-color: rgb(22, 22, 22);
-            font-family: Arial, Helvetica, sans-serif;
-        }
-    
-        .fa-2x{
-            font-size:2em;
-        }
-        .fa{
-            position:relative;
-            display:table-cell;
-            width:60px;
-            height:36px;
-            text-align:center;
-            vertical-align:middle;
-            font-size:20px;
-        }
-    
-        .main-menu:hover, #navicon:hover, nav.main-menu.expanded{
-            width:250px;
-            overflow:visible;
-    
-        }
-    
-        .main-menu{
-            background:rgba(0,0,0,1) 4%;
-            border-right:1px solid #e46226;
-            position: fixed;
-            top:60px;
-            bottom:0;
-            height:100%-70px;
-            left:0;
-            width:250px;
-            overflow:hidden;
-            transition: width 0.2s linear;
-            z-index:1000;
-            -webkit-transform:translate(0) scale(1,1);
-        }
-    
-        .main-menu > ul{
-            margin: 7px 0;
-        }
-    
-        .main-menu li{
-            position: relative;
-            display: block;
-            width:250px;
-        }
-    
-        .main-menu li a{
-            position: relative;
-            display: table;
-            border-collapse: collapse;
-            border-spacing: 0;
-            color:#999;
-            font-family:arial;
-            font-size:14px;
-            text-decoration:none;
-            -webkit-transform:translateZ(0) scale(1,1);
-            transition: all 0.2s linear;
-        }
-    
-        .main-menu .nav-icon{
-            
-            display: table-cell;
-            width:60px;
-            height:36px;
-            text-align:center;
-            vertical-align:middle;
-            font-size:18px;
-            position: fixed;
-        }
-    
-        .main-menu .nav-text{
-            position: relative;
-            display: table-cell;
-            vertical-align:middle;
-            width:190px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            
-        }
-    
-        .main-menu ul.logout{
-            position:fixed;
-            left:0;
-            bottom:0;
-        }
-    
-        .no-touch .scrollable.hover{
-            overflow-y:hidden;
-        }
-        .no-touch .scrollable.hover:hover{
-            overflow-y:auto;
-            overflow:visible;
-        }
-    
-        a:hover,a:focus{
-            text-decoration: none;
-        }
-    
-        nav{
-            user-select: none;
-        }
-        nav ul,nav li{
-            outline:0;
-            margin:0;
-            padding:0;
-    
-        }
-    
-        .main-menu li:hover a,
-        .nav.main-menu li:active a,
-        .dropdown-menu li a:hover,
-        .dropdown-menu li a:focus,
-        .dropdown-menu .active a,
-        .dropdown-menu .active a:hover,
-        .dropdown-menu .active a:focus,
-        .no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
-        .dashboard-page nav.dashboard-menu ul li.active a{
-            color:white;
-            background-color:#e46226;
-        }
-    
-        .area{
-            float:left;
-            background: #e2e2e2;
-            width: 100%;
-            height:100%;
-        }
-    
-    /* Top Navigation */
-    
-        .topnav {
-            height:60px;
-            overflow: hidden;
-            background-color: #000;
-            color:#FFF;
-            border-bottom:1px solid #e46226;
-            position: fixed;
-            width:100%;
-        }
-    
-        .logo{
-            float: left;
-            display: block;
-            color: #e46226;
-            text-align: center;
-            padding:0px 20px;
-            text-decoration: none;        
-            font-family: 'Abel', sans-serif;
-            font-size: 40px;
-            font-weight: 900;
-        }
-    
-        .username {
-            float: right;
-            display: block;         
-            text-align: center;
-            padding: 15px 16px;
-            text-decoration: none;
-            color:#fff;
-            font-size:25px;
-            font-weight: bold;
-            font-family: 'Abel', sans-serif;
-    
-        }
-    
-        .topnav a:hover {
-            background-color: none;
-            color: #e46226;
-        }
-    
-    
-    
-        .search-container {
-            float: left;
-            width:40%;
-            margin-left:10%;
-        }
-    
-        .topnav input[type=text] {
-            padding: 6px;
-            margin-top: 8px;
-            font-size: 17px;
-            border: none;
-            width:80%;
-            color:#000;
-        }
-    
-        .topnav .search-container .button {
-            float: right;
-            padding: 0px 10px;
-            margin-top: 8px;
-            margin-right: 0px;
-            background-color: #e46226;
-            font-size: 17px;
-            border: none;
-            cursor: pointer;
-            text-align:center;
-            width:20%;
-            
-            
-        }
-        .topnav .search-container button:hover {
-            background: #ccc;
-        }
-        #navicon{
-            visibility: hidden;
-            float: left;
-            display: block;
-            color: #e46226;
-            text-align: center;
-            padding:0px 20px;
-            text-decoration: none;        
-            font-family: 'Abel', sans-serif;
-            font-size: 40px;
-            font-weight: 900;
-            position: absolute; 
-            left: -999em;            
-        }  
-    
-        #navicon:active { 
-            background-color: none;
-        }
-    
-            * {box-sizing: border-box;}
-            
-              
-            .button {
-              float: right;
-              padding: 0px 10px;
-              margin-top: 8px;
-              margin-right: 0px;
-              background-color: #e46226;
-              font-size: 17px;
-              border: none;
-              cursor: pointer;
-              text-align:center;
-              width:20%;
-              
-            }
+    /*
+    font-family: 'Abel', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Patua One', cursive;
+    */
+    *{
+        padding:0;
+        margin:0;
+    }
+    body{
+        background-color: rgb(22, 22, 22);
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-/* Content*/
-            
-            
-        .item1 { grid-area: video; }
-        .item2 { grid-area: menu; }
-        .searchlist{
-            padding:80px 400px;
-        }
+    .fa-2x{
+        font-size:2em;
+    }
+    .fa{
+        position:relative;
+        display:table-cell;
+        width:60px;
+        height:36px;
+        text-align:center;
+        vertical-align:middle;
+        font-size:20px;
+    }
+
+    .main-menu:hover, #navicon:hover, nav.main-menu.expanded{
+        width:250px;
+        overflow:visible;
+
+    }
+
+    .main-menu{
+        background:rgba(0,0,0,1) 4%;
+        border-right:1px solid #e46226;
+        position: fixed;
+        top:60px;
+        bottom:0;
+        height:100%-70px;
+        left:0;
+        width:250px;
+        overflow:hidden;
+        transition: width 0.2s linear;
+        z-index:1000;
+        -webkit-transform:translate(0) scale(1,1);
+    }
+
+    .main-menu > ul{
+        margin: 7px 0;
+    }
+
+    .main-menu li{
+        position: relative;
+        display: block;
+        width:250px;
+    }
+
+    .main-menu li a{
+        position: relative;
+        display: table;
+        border-collapse: collapse;
+        border-spacing: 0;
+        color:#999;
+        font-family:arial;
+        font-size:14px;
+        text-decoration:none;
+        -webkit-transform:translateZ(0) scale(1,1);
+        transition: all 0.2s linear;
+    }
+
+    .main-menu .nav-icon{
         
-        .grid-container {
-          display: grid;
-          grid-template-areas:
-            'video menu';
-        grid-template-columns: 400px 400px;
-          grid-gap: 10px;
-          
-          padding: 00px;
-        }
+        display: table-cell;
+        width:60px;
+        height:36px;
+        text-align:center;
+        vertical-align:middle;
+        font-size:18px;
+        position: fixed;
+    }
+
+    .main-menu .nav-text{
+        position: relative;
+        display: table-cell;
+        vertical-align:middle;
+        width:190px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         
-        .grid-container > div {
+    }
+
+    .main-menu ul.logout{
+        position:fixed;
+        left:0;
+        bottom:0;
+    }
+
+    .no-touch .scrollable.hover{
+        overflow-y:hidden;
+    }
+    .no-touch .scrollable.hover:hover{
+        overflow-y:auto;
+        overflow:visible;
+    }
+
+    a:hover,a:focus{
+        text-decoration: none;
+    }
+
+    nav{
+        user-select: none;
+    }
+    nav ul,nav li{
+        outline:0;
+        margin:0;
+        padding:0;
+
+    }
+
+    .main-menu li:hover a,
+    .nav.main-menu li:active a,
+    .dropdown-menu li a:hover,
+    .dropdown-menu li a:focus,
+    .dropdown-menu .active a,
+    .dropdown-menu .active a:hover,
+    .dropdown-menu .active a:focus,
+    .no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
+    .dashboard-page nav.dashboard-menu ul li.active a{
+        color:white;
+        background-color:#e46226;
+    }
+
+    .area{
+        float:left;
+        background: #e2e2e2;
+        width: 100%;
+        height:100%;
+    }
+
+/* Top Navigation */
+
+    .topnav {
+        height:60px;
+        overflow: hidden;
+        background-color: #000;
+        color:#FFF;
+        border-bottom:1px solid #e46226;
+        position: fixed;
+        width:100%;
+    }
+
+    .logo{
+        float: left;
+        display: block;
+        color: #e46226;
+        text-align: center;
+        padding:0px 20px;
+        text-decoration: none;        
+        font-family: 'Abel', sans-serif;
+        font-size: 40px;
+        font-weight: 900;
+    }
+
+    .username {
+        float: right;
+        display: block;         
+        text-align: center;
+        padding: 15px 16px;
+        text-decoration: none;
+        color:#fff;
+        font-size:25px;
+        font-weight: bold;
+        font-family: 'Abel', sans-serif;
+
+    }
+
+    .topnav a:hover {
+        background-color: none;
+        color: #e46226;
+    }
+
+
+
+    .search-container {
+        float: left;
+        width:40%;
+        margin-left:10%;
+    }
+
+    .topnav input[type=text] {
+        padding: 6px;
+        margin-top: 8px;
+        font-size: 17px;
+        border: none;
+        width:80%;
+        color:#000;
+    }
+
+    .topnav .search-container .button {
+        float: right;
+        padding: 0px 10px;
+        margin-top: 8px;
+        margin-right: 0px;
+        background-color: #e46226;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+        text-align:center;
+        width:20%;
+        
+        
+    }
+    .topnav .search-container button:hover {
+        background: #ccc;
+    }
+    #navicon{
+        visibility: hidden;
+        float: left;
+        display: block;
+        color: #e46226;
+        text-align: center;
+        padding:0px 20px;
+        text-decoration: none;        
+        font-family: 'Abel', sans-serif;
+        font-size: 40px;
+        font-weight: 900;
+        position: absolute; 
+        left: -999em;            
+    }  
+
+    #navicon:active { 
+        background-color: none;
+    }
+
+        * {box-sizing: border-box;}
+        
           
-          color:#FFFFFF;
-          text-align: left;
-          padding: 0px 0;
-          font-size: 30px;
+        .button {
+          float: right;
+          padding: 0px 10px;
+          margin-top: 8px;
+          margin-right: 0px;
+          background-color: #e46226;
+          font-size: 17px;
+          border: none;
+          cursor: pointer;
+          text-align:center;
+          width:20%;
+          
         }
-        .grid-container > div > img {
-            height:200px;
-            width:400px;  
-            padding:0px;
-        }  
+
+/* Content*/  
+.searchlist{
+            padding:80px 5px 0 400px;
+        }
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      margin:0px;
+      
+      padding: 0;
+     
+    }
+    .grid-item {
+      color:#FFF;
+      
+      padding: 1%;
+      font-size: 30px;
+      text-align: left;
+       
+    }
     
     </style>
     <style>
@@ -292,6 +281,9 @@ $def with (username,firstname,result,videoname,uploader,category,description)
         {
             width:20%;
         }
+        .grid-container {
+        grid-template-columns: auto;
+    }
         
     }
             
@@ -323,15 +315,13 @@ $def with (username,firstname,result,videoname,uploader,category,description)
         }  
         .grid-container {
           display: grid;
-          grid-template-areas:
-            'video'
-            'menu';
+          grid-template-columns: auto;
             grid-template-columns: 100%;
           grid-gap: 00px;
           
           padding: 00px;
         }
-    
+
         
         .grid-container > div {
           
@@ -441,22 +431,27 @@ $def with (username,firstname,result,videoname,uploader,category,description)
             </div>
     
                
-                <div class="searchlist" >
-                    <p style="color:white; font-size:40px; text-transform: uppercase; font-family: 'Montserrat', sans-serif;">$category</p> 
-                    $for i in range(len(result)):
-                        <div class="grid-container" style="width:100%;">
-                            <div class="item1" style="width:100%">
-                                    <a style="width:100%" href="/play/$result[i]"><img style="width:100%" src="http://0.0.0.0:8080/thumbnails/$result[i]"></a>
-                                </div>
-                                <div class="item2" style="width:100%">
-                                    <a href="/play/$result[i]"><p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#f5eeee; font-size: 30px; font-weight: bold;">$videoname[i]</p></a>
-                                    <a href="/profile/$uploader[i]"><p style="font-family: 'Patua One', cursive; color:#ccc; font-size: 20px">$uploader[i]</p></a>
-                                    <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; font-size: 15px">$description[i]</p>
-                                </div>
+            <div class="searchlist">
+
+                <p style="color:white; font-size:27px; text-transform: uppercase; font-family: 'Montserrat', sans-serif;">$category</p> 
+                            <div class="grid-container">
+                                $for i in range(len(result)):
+                                    <div class="grid-item">
+                                        <a style="width:100%" href="/play/$result[i]"><img style="width:100%" src="http://0.0.0.0:8080/thumbnails/$result[i]"></a>
+                                            <div>
+                                                
+                                                <a href="/play/$result[i]"><p style="font-family:Roboto, Arial, sans-serif; color:#FFF; padding:0px; font-size: 25px; font-weight: bold; line-height: 1; ">$videoname[i]</p></a>
+                                                <p style="font-family:Roboto, Arial, sans-serif; padding:0px; color:#cccccc; font-size: 15px;line-height: 1;"><a href="/profile/$uploader[i]" style="font-weight: bold; color:#CCC;">$uploader[i]</a> <span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; font-size: 12px;padding:0px;line-height: 1;"><i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i> $views[i] Views<i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i>$likes[i] Likes<i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i>$dislikes[i] Dislikes</span></p>
+                                                <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; padding:0px; font-size: 15px;line-height: 1;">$description[i]</p>
+                                            </div>
+                                            
+                                    </div>
                                 
-                        </div><br/>
-                    
-                </div>
+                                      
+                               
+                            </div>
+            
+            </div>
                         
                 
 

@@ -1,4 +1,4 @@
-$def with (username,firstname, result,videoname,uploader,description)
+$def with (username,firstname, result,videoname,uploader,description,views,likes,dislikes)
 <title>::UPLOADS::</title>
 <style>
     /*
@@ -478,7 +478,7 @@ $def with (username,firstname, result,videoname,uploader,description)
                         <button  type="submit" class="button fa-fa-search" value="Search" ><i class="fa fa-search fa-2x"></i></button>
                         </form>
                     </div>
-                    &nbsp &nbsp &nbsp
+                    &nbsp; &nbsp; &nbsp;
                     <div style="float:right; margin-top:20px;" id="google_translate_element">
                     </div>
                     <a class="username" href="/uploadvideo"><i class="fa fa-upload fa-2x"></i></a>
@@ -511,7 +511,7 @@ $def with (username,firstname, result,videoname,uploader,description)
 <br/>
 
 
-        <h1 style="color:white; font-family: 'Montserrat', sans-serif;">UPLOADS</h1>
+<p style="color:white; font-size:27px; font-family: 'Montserrat', sans-serif;">UPLOADS</h1>
         <div class="searchlist" >
                 $for i in range(len(result)):
                     <div class="grid-container" style="width:100%;">
@@ -519,9 +519,9 @@ $def with (username,firstname, result,videoname,uploader,description)
                                 <a style="width:100%" href="/play/$result[i]"><img width=100% src="http://0.0.0.0:8080/thumbnails/$result[i]"></a>
                             </div>
                             <div class="item2" style="width:100%">
-                                <a href="/play/$result[i]"><p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#f5eeee; font-size: 30px; font-weight: bold;">$videoname[i]</p></a>
-                                <a href="/profile/$uploader[i]"><p style="font-family: 'Patua One', cursive; color:#ccc; font-size: 20px">$uploader[i]</p></a>
-                                <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; font-size: 15px">$description[i]</p>
+                                <a href="/play/$result[i]"><p style="font-family:Roboto, Arial, sans-serif; color:#FFF; padding:0px; font-size: 25px; font-weight: bold; line-height: 1; ">$videoname[i]</p></a>
+                                <p style="font-family:Roboto, Arial, sans-serif; padding:0px; color:#cccccc; font-size: 15px;line-height: 1;"><a href="/profile/$uploader[i]" style="font-weight: bold; color:#CCC;">$uploader[i]</a> <span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; font-size: 12px;padding:0px;line-height: 1;"><i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i> $views[i] Views<i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i>$likes[i] Likes<i class="fa fa-circle" style="font-size:5px;padding:0px;margin:0px;width:10px;"></i>$dislikes[i] Dislikes</span></p>
+                                <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#ccc; padding:0px; font-size: 15px;line-height: 1;">$description[i]</p>
                             </div>
                             <div class="item3" style="width:100%">
                                 <form method="POST" action="/editvideo/$result[i]">

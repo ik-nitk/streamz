@@ -70,8 +70,17 @@ def get_uploader(id):
 	params={'uploader':ul}
 	return json.dumps(params)
 
+def get_views(id):
+	data = db.select('video', order='id')
+	authdb = sqlite3.connect('videos.db')
+	c= authdb.execute('select * from video where id=?',[id])
+	row = c.fetchone()
+	vw=row[13]
+	params={'views':vw}
+	return json.dumps(params)
+
 def upload_video(name,videopath,thumbnail,uploader):
-	id=db.insert('video', name=name, urlpath=videopath,thumbnail=thumbnail, uploader=uploader,likes=0,dislikes=0)
+	id=db.insert('video', name=name, urlpath=videopath,thumbnail=thumbnail, uploader=uploader,likes=0,dislikes=0,views=0)
 	params={'id':id}
 	return json.dumps(params)
 
@@ -146,4 +155,12 @@ def get_countryrestriction(videoid):
 	c= authdb.execute('select country from video where id=?',[videoid])
 	row = c.fetchall()
 	params={'CountryRestriction':row[0][0]}
+	return json.dumps(params)
+
+def update_views(videoid):
+	authdb = sqlite3.connect('videos.db')
+	c= authdb.execute('select views from video where id=?',[videoid])
+	row = c.fetchall()
+	db.update('video', where='id= $videoid',vars=locals(), views=int(row[0][0])+1)
+	params={'status':"updated"}
 	return json.dumps(params)

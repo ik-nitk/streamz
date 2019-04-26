@@ -75,7 +75,16 @@ class Categories:
 			descriptions=[]
 			for i in range(len(t)):
 				descriptions.append(model.get_description(t[i])['description'])
-			return render.category(session.user,model.get_firstname(session.user)['firstname'],t,videonames,uploaders,category,descriptions)
+			views=[]
+			for i in range(len(t)):
+				views.append(model.get_views(t[i])['views'])
+			likes=[]
+			dislikes=[]
+			for i in range(len(t)):
+				x=model.get_likestatus_count(t[i])
+				likes.append(x['likes'])
+				dislikes.append(x['dislikes'])
+			return render.category(session.user,model.get_firstname(session.user)['firstname'],t,videonames,uploaders,category,descriptions,views,likes,dislikes)
 
 class Profile:
 
@@ -105,7 +114,16 @@ class ProfileUploads:
 		descriptions=[]
 		for i in range(len(t)):
 			descriptions.append(model.get_description(t[i])['description'])
-		return render.profileuploads(model.get_firstname(session.user)['firstname'],profileusername,t,videonames,uploaders,model.get_firstname(profileusername)['firstname'],descriptions)
+		views=[]
+		for i in range(len(t)):
+			views.append(model.get_views(t[i])['views'])
+		likes=[]
+		dislikes=[]
+		for i in range(len(t)):
+			x=model.get_likestatus_count(t[i])
+			likes.append(x['likes'])
+			dislikes.append(x['dislikes'])
+		return render.profileuploads(model.get_firstname(session.user)['firstname'],profileusername,t,videonames,uploaders,model.get_firstname(profileusername)['firstname'],descriptions,views,likes,dislikes)
 
 
 class Subscribe:
@@ -188,8 +206,8 @@ class Dislike:
 			lks=t['likes']
 			dlks=t['dislikes']
 			model.update_likestatus(i.videoid,lks,dlks)
-			s=model.update_channel_likes_count(i.uploader)
-			return s
+			model.update_channel_likes_count(i.uploader)
+
 			raise web.seeother('/play/'+i.videoid)
 
 class Nonelike:
@@ -274,13 +292,14 @@ class UpdateProfile:
 		x = web.input(myprofilepic={})
 		y = web.input(mycoverpic={})
 		s = model.update_profile(i.firstname,i.lastname,i.username,i.about,i.phone,i.email,i.country,i.dob,x,y)
+		session.kill()
 		raise web.seeother('/myprofile')
 
 class Index:
 
 	login = form.Form(
-	form.Textbox('username'),
-	form.Password('password'),
+	form.Textbox('username',form.notnull),
+	form.Password('password',form.notnull),
 	form.Button('Login'),
 	)
 
@@ -310,13 +329,15 @@ class Index:
 			
 
 class Register:
+
+
 	register = form.Form(
-	form.Textbox('firstname'),
-	form.Textbox('lastname'),
-	form.Textbox('phone'),
-	form.Textbox('email'),
-	form.Password('username'),
-	form.Password('password'),
+	form.Textbox('firstname',form.notnull),
+	form.Textbox('lastname',form.notnull),
+	form.Textbox('phone',form.notnull),
+	form.Textbox('email',form.notnull),
+	form.Textbox('username',form.notnull),
+	form.Password('password',form.notnull),
 	form.Button('Register'),
 	)
 
@@ -327,7 +348,7 @@ class Register:
 	def POST(self):
 		register = self.register()
 		if not register.validates():            
-			return "Unsuccessful"
+			raise web.seeother('/')
 
 		fn=register.d.firstname
 		ln=register.d.lastname
@@ -359,7 +380,16 @@ class Search:
 		descriptions=[]
 		for i in range(len(t)):
 			descriptions.append(model.get_description(t[i])['description'])
-		return render.search(session.user,t,videonames,uploaders,descriptions)
+		views=[]
+		for i in range(len(t)):
+			views.append(model.get_views(t[i])['views'])
+		likes=[]
+		dislikes=[]
+		for i in range(len(t)):
+			x=model.get_likestatus_count(t[i])
+			likes.append(x['likes'])
+			dislikes.append(x['dislikes'])
+		return render.search(session.user,t,videonames,uploaders,descriptions,views,likes,dislikes)
 		
 
 class Homepage:
@@ -370,17 +400,27 @@ class Homepage:
 		else:
 			x= model.get_trending(int(model.calculate_Age(model.get_dob(session.user)['dob'])),model.get_country(session.user)['country'])
 			t= x['trend_video']
-
+			
 			videonames=[]
 			for i in range(len(t)):
 				videonames.append(model.get_videoname(t[i])['name'])
+			
 			uploaders=[]
 			for i in range(len(t)):
 				uploaders.append(model.get_uploader(t[i])['uploader'])
 			descriptions=[]
 			for i in range(len(t)):
 				descriptions.append(model.get_description(t[i])['description'])
-			return render.homepage(model.get_firstname(session.user)['firstname'],t,videonames,uploaders,descriptions)
+			views=[]
+			for i in range(len(t)):
+				views.append(model.get_views(t[i])['views'])
+			likes=[]
+			dislikes=[]
+			for i in range(len(t)):
+				x=model.get_likestatus_count(t[i])
+				likes.append(x['likes'])
+				dislikes.append(x['dislikes'])
+			return render.homepage(model.get_firstname(session.user)['firstname'],t,videonames,uploaders,descriptions,views,likes,dislikes)
 
 class Play:
 	def GET(self,video_id):
@@ -398,6 +438,8 @@ class Play:
 				if (z not in y):
 					
 					model.add_history(session.user,video_id)
+					model.update_views(video_id)
+
 					ls=model.get_likestatus(session.user,video_id)
 					ss=model.get_subscribestatus(session.user,model.get_uploader(video_id)['uploader'])
 					cmts=model.get_commentlist(video_id)
@@ -422,7 +464,16 @@ class Play:
 					descriptions=[]
 					for i in range(len(t)):
 						descriptions.append(model.get_description(t[i])['description'])
-					return render.play(session.user,model.get_firstname(session.user)['firstname'],video_id,model.get_videoname(video_id)['name'],model.get_uploader(video_id)['uploader'],model.get_description(video_id)['description'],ls['likestatus'],ss['subscribestatus'],cmts['commentid'],cmts['usernames'],cmts['commentlist'],t,videonames,uploaders,descriptions)
+					views=[]
+					for i in range(len(t)):
+						views.append(model.get_views(t[i])['views'])
+					likes=[]
+					dislikes=[]
+					for i in range(len(t)):
+						x=model.get_likestatus_count(t[i])
+						likes.append(x['likes'])
+						dislikes.append(x['dislikes'])
+					return render.play(session.user,model.get_firstname(session.user)['firstname'],video_id,model.get_videoname(video_id)['name'],model.get_uploader(video_id)['uploader'],model.get_description(video_id)['description'],model.get_views(video_id)['views'],model.get_likestatus_count(video_id)['likes'],model.get_likestatus_count(video_id)['dislikes'],ls['likestatus'],ss['subscribestatus'],cmts['commentid'],cmts['usernames'],cmts['commentlist'],t,videonames,uploaders,descriptions,views,likes,dislikes)
 				else:
 					return render.restrictions(model.get_firstname(session.user)['firstname'])
 			else:
@@ -544,8 +595,17 @@ class Uploads:
 		descriptions=[]
 		for i in range(len(t)):
 			descriptions.append(model.get_description(t[i])['description'])
+		views=[]
+		for i in range(len(t)):
+			views.append(model.get_views(t[i])['views'])
+		likes=[]
+		dislikes=[]
+		for i in range(len(t)):
+			x=model.get_likestatus_count(t[i])
+			likes.append(x['likes'])
+			dislikes.append(x['dislikes'])
 		
-		return render.uploads(session.user,model.get_firstname(session.user)['firstname'],t,videonames,uploaders,descriptions)
+		return render.uploads(session.user,model.get_firstname(session.user)['firstname'],t,videonames,uploaders,descriptions,views,likes,dislikes)
 
 class Statistics:
 
@@ -563,13 +623,16 @@ class Statistics:
 		descriptions=[]
 		for i in range(len(t)):
 			descriptions.append(model.get_description(t[i])['description'])
+		views=[]
+		for i in range(len(t)):
+			views.append(model.get_views(t[i])['views'])
 		likes=[]
 		dislikes=[]
 		for i in range(len(t)):
 			x=model.get_likestatus_count(t[i])
 			likes.append(x['likes'])
 			dislikes.append(x['dislikes'])
-		return render.statistics(session.user,model.get_firstname(session.user)['firstname'],t,videonames,uploaders,descriptions,likes,dislikes)
+		return render.statistics(session.user,model.get_firstname(session.user)['firstname'],t,videonames,uploaders,descriptions,views,likes,dislikes)
 
 """-------------------------------------------------------------------------------------------------------"""
 
@@ -580,6 +643,7 @@ class History:
 		if session.user=='username':
 			raise web.seeother('/')
 		t=model.get_history(session.user)['videoids']
+
 		videonames=[]
 		for i in range(len(t)):
 			videonames.append(model.get_videoname(t[i])['name'])
@@ -589,7 +653,16 @@ class History:
 		descriptions=[]
 		for i in range(len(t)):
 			descriptions.append(model.get_description(t[i])['description'])
-		return render.history(session.user,model.get_firstname(session.user)['firstname'],t,videonames,uploaders,descriptions)
+		views=[]
+		for i in range(len(t)):
+			views.append(model.get_views(t[i])['views'])
+		likes=[]
+		dislikes=[]
+		for i in range(len(t)):
+			x=model.get_likestatus_count(t[i])
+			likes.append(x['likes'])
+			dislikes.append(x['dislikes'])
+		return render.history(session.user,model.get_firstname(session.user)['firstname'],t,videonames,uploaders,descriptions,views,likes,dislikes)
 
 
 

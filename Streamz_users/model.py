@@ -91,7 +91,7 @@ def check_user(username,password):
     c= authdb.execute('select * from user where username=? and pwd=?',(username,password))
     row = c.fetchone()
     if row == None:
-		params={'status':'LoggedIn','username':"username"}
+		params={'status':'NotLoggedIn','username':"username"}
 		return json.dumps(params) 
     else: 
 		params={'status':'LoggedIn','username':username}
@@ -257,3 +257,8 @@ def get_history(username):
 	params={'videoids':videoids}
 	return json.dumps(params)
 
+
+def delete_video(id):
+	db.delete('history', where="videoid=$id", vars=locals())
+	params={'status':"Deleted"}
+	return json.dumps(params)

@@ -31,7 +31,16 @@ urls = ('/login', 'Login',
         '/getuserstats','GetUserStats',
         '/addhistory','AddHistory',
         '/gethistory','GetHistory',
+        '/deletevideo','DeleteVideo',
         )
+
+class DeleteVideo:
+    
+        def POST(self):
+                data=web.data()
+                id=json.loads(data)['id']
+                s=model.delete_video(id)
+                return s
 
 class AddViews:
         def POST(self):

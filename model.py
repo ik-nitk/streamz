@@ -77,6 +77,7 @@ def delete_video(id):
 
     params = {'id': id}
     p=requests.post('http://0.0.0.0:7070/deletevideo', data=json.dumps(params))
+    p=requests.post('http://0.0.0.0:9090/deletevideo', data=json.dumps(params))
     p=requests.post('http://0.0.0.0:5050/deletevideo', data=json.dumps(params))
     return p.json()
 
@@ -101,7 +102,7 @@ def upload_video(x,th,uploader):
 
 def upload_video_info(id,name,description,tags,countries,category,uploader,age,th,st):
 
-    params = {'id':id,'video_name':name,'description':description,'tags':tags,'category':category,'countries':json.dumps(countries),'uploader':uploader,'age':int(age)} 
+    params = {'id':int(id),'video_name':name,'description':description,'tags':tags,'category':category,'countries':json.dumps(countries),'uploader':uploader,'age':int(age)} 
     p=requests.post('http://0.0.0.0:7070/details', data=json.dumps(params))
 
     paramsth = {'thumbnail_file': th.mythumbnail.file.read(),'thumbnail_name':th.mythumbnail.filename,'subtitles_file': st.mysubtitles.file.read(),'subtitles_name':st.mysubtitles.filename,'id':id,'video_name':name,'description':description,'tags':tags,'category':category,'countries':json.dumps(countries),'age':age}
@@ -111,7 +112,7 @@ def upload_video_info(id,name,description,tags,countries,category,uploader,age,t
 
 def update_video(id,name,description,tags,countries,category,uploader,age,th,st):
 
-    params = {'id':id,'video_name':name,'description':description,'tags':tags,'category':category,'countries':json.dumps(countries),'uploader':uploader,'age':age} 
+    params = {'id':int(id),'video_name':name,'description':description,'tags':tags,'category':category,'countries':json.dumps(countries),'uploader':uploader,'age':age} 
     p=requests.post('http://0.0.0.0:7070/updatevideo', data=json.dumps(params))
 
     paramsth = {'thumbnail_file': th.mythumbnail.file.read(),'thumbnail_name':th.mythumbnail.filename,'subtitles_file': st.mysubtitles.file.read(),'subtitles_name':st.mysubtitles.filename,'id':id,'video_name':name,'description':description,'tags':tags,'category':category,'countries':json.dumps(countries),'age':age}
@@ -148,6 +149,11 @@ def get_description(id):
 def get_uploader(id):
     params = {'vid': id} 
     p=requests.post('http://0.0.0.0:5050/getuploader', data=json.dumps(params))
+    return p.json()
+
+def get_views(id):
+    params = {'vid': id} 
+    p=requests.post('http://0.0.0.0:5050/getviews', data=json.dumps(params))
     return p.json()
 
 def calculate_Age(db):
@@ -285,3 +291,7 @@ def get_countryrestriction(videoid):
     p=requests.post('http://0.0.0.0:5050/getcountryrestriction', data=json.dumps(params))
     return p.json()
 
+def update_views(videoid):
+    params = {'videoid':videoid}
+    p=requests.post('http://0.0.0.0:5050/updateviews', data=json.dumps(params))
+    return p.json()

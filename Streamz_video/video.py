@@ -12,6 +12,7 @@ urls = ('/getvideodesc', 'GetVideoDesc',
         '/getvideoname', 'GetVideoName',
         '/getuploader', 'GetUploader',
         '/getdescription', 'GetDescription',
+        '/getviews', 'GetViews',
 	'/updatevideoinfo', 'UpdateVideoInfo',
         '/getuploads','GetUploads',
         '/deletevideo','DeleteVideo',
@@ -19,7 +20,16 @@ urls = ('/getvideodesc', 'GetVideoDesc',
         '/getchannellikescount','GetChannelLikesCount',
         '/getagerestriction','GetAgerestriction',
         '/getcountryrestriction','GetCountryrestriction',
+        '/updateviews','UpdateViews',
 )
+
+class UpdateViews:
+        def POST(self):
+                data=web.data()
+                vid=json.loads(data)['videoid']
+                s=model.update_views(vid)
+                return s
+
 
 class GetCountryrestriction:
         def POST(self):
@@ -105,6 +115,14 @@ class GetUploader:
                 data=web.data()
                 id=json.loads(data)['vid']
                 s=model.get_uploader(id)
+                return s
+
+class GetViews:
+    
+        def POST(self):
+                data=web.data()
+                id=json.loads(data)['vid']
+                s=model.get_views(id)
                 return s
 
 class GetVideoDesc:

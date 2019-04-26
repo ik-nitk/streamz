@@ -308,11 +308,11 @@ $def with (username,firstname, subscriptions)
         #navicon{
             visibility: visible;
             float: left;
-                display: block;
-                color: #e46226;
-                text-align: center;
-                padding:10px 20px;
-                text-decoration: none;        
+            display: block;
+            color: #e46226;
+            text-align: center;
+            padding:10px 20px;
+            text-decoration: none;        
             font-family: 'Abel', sans-serif;
             font-size: 40px;
             font-weight: 900;
@@ -460,8 +460,9 @@ $def with (username,firstname, subscriptions)
             
             
 <div class="content">
-    <h1 style="color:white; font-family: 'Montserrat', sans-serif;">SUBSCRIPTION</h1>
+    
     <div class="searchlist" >
+            <p style="color:white; font-size:27px; font-family: 'Montserrat', sans-serif;">SUBSCRIPTION</P>
         $for i in range(len(subscriptions)):
             <div class="grid-container" style="width:100%;">
                 <div class="item1" style="width:100%">
@@ -470,7 +471,7 @@ $def with (username,firstname, subscriptions)
                 </center>
                 </div>
                 <div class="item2" style="width:100%; padding-top:10%;">
-                    <a class="aclass" href="/profile/$subscriptions[i]"><p style="font-family: 'Patua One', cursive;font-size: 30px; font-weight: bold;">$subscriptions[i]</p></a>                   
+                    <a class="aclass" href="/profile/$subscriptions[i]"><p style="font-family:Roboto, Arial, sans-serif;font-size: 30px; font-weight: bold;">$subscriptions[i]</p></a>                   
                 
                     <form method="POST" action="/unsubscribe">
                         <input value="0" style="display:none;" type="text" name="videoid"/>

@@ -87,7 +87,7 @@ def update_details(details):
   age=json.loads(details)['age']
   #Connect to the elastic cluster
   es=Elasticsearch([{'host':'localhost','port':9200}])
-  body={"doc":{'id':ids,'uploader':uploader,'category':category,'title':title,'description':description,'tags':tags,'countries':countries,'age':age}}
+  body={"doc":{'id':int(ids),'uploader':uploader,'category':category,'title':title,'description':description,'tags':tags,'countries':countries,'age':age}}
   res=es.update(index='streamz',doc_type='video',id=ids,body=body)
   return res
 
@@ -133,7 +133,6 @@ def trending(age,country):
 
   for hit in res['hits']['hits']:
     videos.append(hit['_source']['id'])
-    print hit['_source']['id']
   ids = {'trend_video': videos}
   return json.dumps(ids)
 
